@@ -3,7 +3,7 @@ import { Divider } from "@/components/ui/Divider";
 import { Input } from "@/components/ui/Input";
 import { GoogleSingUp } from "@/components/webeo/GoogleSingUp";
 import { MicrosoftSingUp } from "@/components/webeo/MicrosoftSingUp";
-import { useLogin } from "./useLogin";
+import { useLogin } from "../hooks/useLogin";
 
 export const Login = () => {
   const { loading, handleLoginClick, setRequest } = useLogin();

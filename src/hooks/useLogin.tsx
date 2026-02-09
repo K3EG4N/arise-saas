@@ -22,15 +22,20 @@ export const useLogin = () => {
       }),
     })
       .then((res) => {
-        setLoading(false);
         if (res.ok) {
-          navigate("/dashboard");
+          return res.json();
         } else {
-          alert("Login failed");
+          throw new Error("Login failed");
         }
       })
-      .catch(() => {
+      .then((data) => {
+        localStorage.setItem("token", data.token);
         setLoading(false);
+        navigate("/dashboard");
+      })
+      .catch((error) => {
+        setLoading(false);
+        alert(error.message || "Login failed");
       });
   };
 
