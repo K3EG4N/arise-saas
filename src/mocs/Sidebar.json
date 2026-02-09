@@ -1,0 +1,20 @@
+[
+  {
+    "orden": 0,
+    "title": "Main Menu",
+    "items": [
+      {
+        "name": "Dashboard",
+        "url": "dashboard",
+        "icon": "chart",
+        "children": []
+      },
+      {
+        "name": "Employees",
+        "url": "employees",
+        "icon": "employees",
+        "children": []
+      }
+    ]
+  }
+]
