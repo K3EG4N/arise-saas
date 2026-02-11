@@ -1,8 +1,8 @@
-import { Divider } from "../ui/Divider";
-import { Search } from "../Searcher";
-import { BreadCrum } from "../ui/BreadCrum";
 import { Notifactions } from "./fragments/Notifactions";
 import { UserBadge } from "./fragments/UserBadge";
+import { Divider } from "../ui/Divider";
+import { Search } from "./fragments/Searcher";
+import { BreadCrum } from "../ui/BreadCrum";
 
 export const Navbar = () => {
   return (

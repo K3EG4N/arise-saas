@@ -1,5 +1,5 @@
-import { CloseEye } from "@/icons/CloseEye";
-import { OpenEye } from "@/icons/OpenEye";
+import { CloseEye } from "@/icons/Regular/CloseEye";
+import { OpenEye } from "@/icons/Regular/OpenEye";
 import { useState } from "react";
 import type { IInput } from "@/interfaces/IInput";
 

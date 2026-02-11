@@ -1,4 +1,4 @@
-import { Loader } from "@/icons/Loader";
+import { Loader } from "@/icons/Regular/Loader";
 import type { IButton } from "@/interfaces/IButton";
 
 export const Button = ({

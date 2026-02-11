@@ -1,11 +1,9 @@
-import elements from "../mocs/Sidebar.json";
+import elements from "../../mocs/Sidebar.json";
 import { useState } from "react";
 import { useRenderIcon } from "@/hooks/useRenderIcon";
-import { useNavigate } from "react-router-dom";
 
 export const Sidebar = () => {
   const { getIconByName } = useRenderIcon();
-  //   const navigate = useNavigate();
   const [current, setCurrent] = useState("chart");
 
   return (
