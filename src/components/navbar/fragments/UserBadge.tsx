@@ -1,32 +1,10 @@
-import { Bell } from "@/icons/Bell";
-import { Divider } from "./ui/Divider";
-import { Search } from "./Searcher";
-import { BreadCrum } from "./ui/BreadCrum";
+import { EmployeeContext } from "@/context/EmployeeContext";
+import { ChevronDown } from "@/icons/Regular/ChevronDown";
+import { getTokenData } from "@/utils/token";
 import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getTokenData } from "@/utils/token";
-import { EmployeeContext } from "@/context/EmployeeContext";
 
-export const Navbar = () => {
-  return (
-    <header className="shadow h-16 rounded py-2 px-4 flex items-center justify-between gap-4">
-      <BreadCrum items={["Main", "Employees"]} />
-      <div className="w-[30%]">
-        <Search />
-      </div>
-      <section className="flex items-center h-full gap-3.5 min-w-0">
-        <Bell />
-        {/* <div>
-          <Button icon={<Bell />} iconPosition="left" appareance="ghost" />
-        </div> */}
-        <Divider orientation="vertical" />
-        <UserInfo />
-      </section>
-    </header>
-  );
-};
-
-const UserInfo = () => {
+export const UserBadge = () => {
   const navigate = useNavigate();
   const context = useContext(EmployeeContext);
 
@@ -71,6 +49,9 @@ const UserInfo = () => {
         <span className="ml-2 text-xs text-gray-500 truncate">
           {context?.employee?.email}
         </span>
+      </div>
+      <div className="ml-2 h-full cursor-pointer">
+        <ChevronDown />
       </div>
     </div>
   );
