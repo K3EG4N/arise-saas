@@ -3,10 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { EmployeeContext } from "@/context/EmployeeContext";
 import { ChevronDown } from "@/icons/Regular/ChevronDown";
 import { getTokenData } from "@/utils/token";
+import { Logout } from "./Logout";
 
 export const UserBadge = () => {
   const navigate = useNavigate();
-  const [active, setActive] = useState(false);
+  const [openOpcion, setOpenOpcion] = useState(false);
   const { employee, setEmployee } = useContext(EmployeeContext) ?? {};
 
   useEffect(() => {
@@ -37,8 +38,8 @@ export const UserBadge = () => {
   }, [navigate, setEmployee]);
 
   return (
-    <div className="flex items-center gap-0.5 whitespace-nowrap">
-      <figure className="rounded-lg overflow-hidden w-12 cursor-pointer shrink-0">
+    <div className="relative flex h-full items-center gap-0.5 whitespace-nowrap">
+      <figure className="w-12 shrink-0 cursor-pointer overflow-hidden rounded-lg">
         <img
           src={employee?.foto}
           alt=""
@@ -46,17 +47,21 @@ export const UserBadge = () => {
           className="size-full object-cover"
         />
       </figure>
-      <div className="flex flex-col w-fit">
-        <span className="ml-2 text-sm font-medium truncate">
+      <div className="flex w-fit flex-col">
+        <span className="ml-2 truncate text-sm font-medium">
           {employee?.name}
         </span>
-        <span className="ml-2 text-xs text-gray-500 truncate">
+        <span className="ml-2 truncate text-xs text-gray-500">
           {employee?.email}
         </span>
       </div>
-      <div className="ml-2 h-full cursor-pointer">
+      <div
+        className="ml-2 flex h-full cursor-pointer items-center"
+        onClick={() => setOpenOpcion((prev) => !prev)}
+      >
         <ChevronDown />
       </div>
+      <Logout active={openOpcion} onClose={() => setOpenOpcion(false)} />
     </div>
   );
 };

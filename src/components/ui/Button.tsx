@@ -12,12 +12,12 @@ export const Button = ({
   return (
     <button
       disabled={isLoading}
-      className={`border-[1.5px] w-full px-2 py-2.5 rounded font-medium transition flex items-center justify-center h-10.5 gap-2 ${
+      className={`flex h-9.5 text-sm w-full items-center justify-center gap-2 rounded border-[1.5px] px-2 py-2.5 font-medium transition ${
         isLoading
-          ? "border-stone-200 bg-[#F0F0F0] text-gray-600 cursor-not-allowed"
+          ? "cursor-not-allowed border-stone-200 bg-[#F0F0F0] text-gray-600"
           : appareance === "ghost"
-            ? "bg-white border-stone-300 hover:bg-stone-100 text-black cursor-pointer"
-            : "bg-teal-500 text-white hover:bg-teal-600 cursor-pointer"
+            ? "cursor-pointer border-stone-300 bg-white text-black hover:bg-stone-100"
+            : "cursor-pointer bg-teal-500 text-white hover:bg-teal-600"
       }`}
       onClick={onClick && onClick}
     >

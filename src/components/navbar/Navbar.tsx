@@ -6,12 +6,12 @@ import { BreadCrum } from "../ui/BreadCrum";
 
 export const Navbar = () => {
   return (
-    <header className="shadow h-16 rounded py-2 px-4 flex items-center justify-between gap-4">
+    <header className="flex h-16 items-center justify-between gap-4 rounded px-4 py-2 shadow">
       <BreadCrum items={["Main", "Employees"]} />
       <div className="w-[30%]">
         <Search />
       </div>
-      <section className="flex items-center h-full gap-3.5 min-w-0">
+      <section className="flex h-full min-w-0 items-center gap-3.5">
         <Notifactions />
         <Divider orientation="vertical" />
         <UserBadge />
