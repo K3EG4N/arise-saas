@@ -4,12 +4,14 @@
     "title": "Main Menu",
     "items": [
       {
+        "id": 1,
         "name": "Dashboard",
         "url": "dashboard",
         "icon": "chart",
         "children": []
       },
       {
+        "id": 2,
         "name": "Employees",
         "url": "employees",
         "icon": "employees",
