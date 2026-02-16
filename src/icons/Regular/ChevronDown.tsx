@@ -5,10 +5,7 @@ export const ChevronDown = () => {
       width="24"
       height="24"
       stroke="currentColor"
-      stroke-width="2"
       fill="none"
-      stroke-linecap="round"
-      stroke-linejoin="round"
       className="size-5 text-neutral-700"
     >
       <polyline points="6 9 12 15 18 9"></polyline>

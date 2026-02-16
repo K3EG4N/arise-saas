@@ -1,7 +1,8 @@
 export const Employees = () => {
   return (
-    <div>
-      <h1>employees</h1>
-    </div>
+    <section>
+      <h1 className="text-2xl">Employees</h1>
+      <span className="text-sm">See all employees of your work and make changes</span>
+    </section>
   );
 };

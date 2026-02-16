@@ -5,10 +5,7 @@ export const Loader = () => {
       width="16"
       height="16"
       stroke="currentColor"
-      stroke-width="2"
       fill="none"
-      stroke-linecap="round"
-      stroke-linejoin="round"
       className="size-4 animate-spin text-stone-500"
     >
       <line x1="12" y1="2" x2="12" y2="6"></line>

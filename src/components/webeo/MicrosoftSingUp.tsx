@@ -16,7 +16,6 @@ export const MicrosoftIcon = () => {
     <svg
       stroke="currentColor"
       fill="currentColor"
-      stroke-width="0"
       viewBox="0 0 256 256"
       className="size-5"
     >

@@ -16,13 +16,12 @@ export const GoogleIcon = () => {
     <svg
       stroke="currentColor"
       fill="currentColor"
-      stroke-width="0"
       version="1.1"
       x="0px"
       y="0px"
       viewBox="0 0 48 48"
       enable-background="new 0 0 48 48"
-      className="size-5"
+      className="size-5 stroke-0"
     >
       <path
         fill="#FFC107"

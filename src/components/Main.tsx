@@ -8,7 +8,7 @@ export const Main = () => {
       <Sidebar />
       <section className="flex flex-1 flex-col gap-3">
         <Navbar />
-        <div className="h-full flex-1 rounded bg-neutral-50 shadow">
+        <div className="h-full flex-1 rounded bg-neutral-50 shadow p-3">
           <Outlet />
         </div>
       </section>

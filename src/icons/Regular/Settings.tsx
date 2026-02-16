@@ -5,10 +5,7 @@ export const Settings = () => {
       width="24"
       height="24"
       stroke="currentColor"
-      stroke-width="2"
       fill="none"
-      stroke-linecap="round"
-      stroke-linejoin="round"
       className="size-4.5 text-neutral-700"
     >
       <circle cx="12" cy="12" r="3"></circle>

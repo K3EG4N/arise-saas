@@ -8,6 +8,7 @@ export const Input = ({
   title,
   field,
   type,
+  status,
   onChange,
 }: IInput) => {
   const [typeState, setTypeState] = useState(type ?? "text");
@@ -15,13 +16,17 @@ export const Input = ({
   return (
     <div className="w-full">
       {title && (
-        <span className="block mb-1.5 text-sm font-medium text-stone-900">
+        <span className="mb-1.5 block text-sm font-medium text-stone-900">
           {title}
         </span>
       )}
       <div className="relative flex">
         <input
-          className={`w-full px-3 py-2 ${type === "password" ? "pr-8" : ""} border border-stone-300 rounded text-stone-900 placeholder-stone-400 transition outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/25`}
+          className={`w-full px-3 py-2 ${type === "password" ? "pr-8" : ""} rounded border transition outline-none ${
+            status === "error"
+              ? "border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500/25"
+              : "border-stone-300 focus:border-teal-500 focus:ring-2 focus:ring-teal-500/25"
+          } text-stone-900 placeholder-stone-400`}
           type={typeState ?? "text"}
           onChange={onChange && ((e) => onChange(e.target.value))}
           placeholder={placeholder}
@@ -29,7 +34,7 @@ export const Input = ({
 
         {type === "password" && (
           <div
-            className="absolute top-1/2 -translate-y-1/2 right-2.5 cursor-pointer flex items-center justify-center text-stone-600 hover:text-stone-900 transition"
+            className="absolute top-1/2 right-3.5 flex -translate-y-1/2 cursor-pointer items-center justify-center text-stone-600 transition hover:text-stone-900"
             onClick={() =>
               setTypeState(typeState === "password" ? "text" : "password")
             }
@@ -38,7 +43,13 @@ export const Input = ({
           </div>
         )}
       </div>
-      {field && <span className="text-sm text-stone-500 ml-0.5">{field}</span>}
+      {field && (
+        <span
+          className={`ml-0.5 text-xs font-medium ${status === "error" ? "text-red-500" : "text-stone-400"}`}
+        >
+          {field}
+        </span>
+      )}
     </div>
   );
 };

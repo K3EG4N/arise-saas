@@ -5,10 +5,7 @@ export const User = () => {
       width="24"
       height="24"
       stroke="currentColor"
-      stroke-width="2"
       fill="none"
-      stroke-linecap="round"
-      stroke-linejoin="round"
       className="size-4.5 text-neutral-700"
     >
       <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
