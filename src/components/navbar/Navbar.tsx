@@ -1,4 +1,4 @@
-import { Notifactions } from "./fragments/Notifactions";
+import { Notifications } from "./fragments/Notifactions";
 import { UserBadge } from "./fragments/UserBadge";
 import { Divider } from "../ui/Divider";
 import { Search } from "./fragments/Searcher";
@@ -15,7 +15,7 @@ export const Navbar = () => {
         <Search />
       </div>
       <section className="flex h-full min-w-0 items-center gap-3.5">
-        <Notifactions />
+        <Notifications />
         <Divider orientation="vertical" />
         <UserBadge />
       </section>

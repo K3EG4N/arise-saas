@@ -10,16 +10,26 @@ export const Input = ({
   type,
   status,
   onChange,
+  rightText,
 }: IInput) => {
   const [typeState, setTypeState] = useState(type ?? "text");
 
   return (
     <div className="w-full">
-      {title && (
-        <span className="mb-1.5 block text-sm font-medium text-stone-900">
-          {title}
-        </span>
-      )}
+      <div className="flex justify-between">
+        {title && (
+          <span
+            className={`mb-1.5 block text-sm font-medium ${status === "error" ? "text-red-500" : "text-stone-900"}`}
+          >
+            {title}
+          </span>
+        )}
+        {rightText && (
+          <span className="mb-1.5 block cursor-pointer text-xs font-medium text-stone-900 underline">
+            {rightText}
+          </span>
+        )}
+      </div>
       <div className="relative flex">
         <input
           className={`w-full px-3 py-2 ${type === "password" ? "pr-8" : ""} rounded border transition outline-none ${

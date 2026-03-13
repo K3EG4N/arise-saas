@@ -4,6 +4,7 @@ import { EmployeeContext } from "@/context/EmployeeContext";
 import { ChevronDown } from "@/icons/Regular/ChevronDown";
 import { getTokenData } from "@/utils/token";
 import { Logout } from "./Logout";
+import { User } from "@/icons/Regular/User";
 
 export const UserBadge = () => {
   const navigate = useNavigate();
@@ -39,13 +40,19 @@ export const UserBadge = () => {
 
   return (
     <div className="relative flex h-full items-center gap-0.5 whitespace-nowrap">
-      <figure className="w-12 shrink-0 cursor-pointer overflow-hidden rounded-lg">
-        <img
-          src={employee?.foto}
-          alt=""
-          draggable={false}
-          className="size-full object-cover"
-        />
+      <figure className="size-12 shrink-0 cursor-pointer overflow-hidden rounded-lg">
+        {employee?.foto ? (
+          <img
+            src={employee?.foto}
+            alt=""
+            draggable={false}
+            className="size-full object-cover"
+          />
+        ) : (
+          <div className="flex size-full items-center justify-center bg-gray-100">
+            <User />
+          </div>
+        )}
       </figure>
       <div className="flex w-fit flex-col">
         <span className="ml-2 truncate text-sm font-medium">

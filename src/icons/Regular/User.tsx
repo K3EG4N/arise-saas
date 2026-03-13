@@ -6,7 +6,7 @@ export const User = () => {
       height="24"
       stroke="currentColor"
       fill="none"
-      className="size-4.5 text-neutral-700"
+      className="size-4.5 stroke-2 text-neutral-700"
     >
       <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
       <circle cx="12" cy="7" r="4"></circle>

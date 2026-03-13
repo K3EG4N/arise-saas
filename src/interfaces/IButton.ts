@@ -4,7 +4,7 @@ export interface IButton {
   label?: string;
   isLoading?: boolean;
   onClick?: () => void;
-  appareance?: "primary" | "ghost";
+  appareance?: "primary" | "ghost" | "outline";
   icon?: JSX.Element;
   iconPosition?: "left" | "right";
 }

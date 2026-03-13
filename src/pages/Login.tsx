@@ -13,8 +13,8 @@ export const Login = () => {
       <article className="flex w-[45%] flex-col items-center justify-center gap-4 px-48">
         <h1 className="text-3xl font-bold">Welcome Back</h1>
         <p className="text-center text-sm text-pretty">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea, earum.
-          Dicta quo saepe iusto, mollitia enim repudiandae{" "}
+          Sign in to access your workspace, collaborate with your team, and keep
+          your projects moving forward.
         </p>
         <div className="flex w-full flex-col gap-4">
           <div className="flex w-full items-center justify-center gap-2.5 text-sm">
@@ -36,6 +36,7 @@ export const Login = () => {
               title="Password"
               placeholder="Your password"
               type="password"
+              rightText="Forgot password?"
               field={errors.password}
               status={errors.password.length != 0 ? "error" : "default"}
               onChange={(value) =>

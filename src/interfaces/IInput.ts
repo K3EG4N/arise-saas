@@ -4,5 +4,6 @@ export interface IInput {
   type?: "text" | "password" | "number";
   onChange?: (value: string) => void;
   field?: string;
+  rightText?: string;
   status?: "error" | "success" | "default";
 }

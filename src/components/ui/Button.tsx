@@ -7,17 +7,19 @@ export const Button = ({
   onClick,
   appareance,
   icon,
-  iconPosition,
+  iconPosition = 'left',
 }: IButton) => {
   return (
     <button
       disabled={isLoading}
-      className={`flex h-9.5 text-sm w-full items-center justify-center gap-2 rounded border-[1.5px] px-2 py-2.5 font-medium transition ${
+      className={`flex h-10.5 w-full items-center justify-center gap-2 rounded border-[1.5px] px-2 py-0 text-sm font-medium transition ${
         isLoading
           ? "cursor-not-allowed border-stone-200 bg-[#F0F0F0] text-gray-600"
-          : appareance === "ghost"
+          : appareance === "outline"
             ? "cursor-pointer border-stone-300 bg-white text-black hover:bg-stone-100"
-            : "cursor-pointer bg-teal-500 text-white hover:bg-teal-600"
+            : appareance === "ghost"
+              ? "py-1 px-3.5 h-fit cursor-pointer border-transparent bg-transparent text-black hover:bg-neutral-200/50"
+              : "cursor-pointer bg-teal-500 text-white hover:bg-teal-600"
       }`}
       onClick={onClick && onClick}
     >
