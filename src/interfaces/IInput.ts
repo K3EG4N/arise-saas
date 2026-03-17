@@ -1,3 +1,5 @@
+import type { JSX } from "react";
+
 export interface IInput {
   placeholder?: string;
   title?: string;
@@ -5,5 +7,7 @@ export interface IInput {
   onChange?: (value: string) => void;
   field?: string;
   rightText?: string;
+  icon?: JSX.Element | React.ReactNode;
+  iconPosition?: "left" | "right";
   status?: "error" | "success" | "default";
 }

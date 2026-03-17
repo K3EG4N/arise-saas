@@ -20,13 +20,13 @@ export const Checkbox = ({ active = false, onCheck, onClick }: ICheckbox) => {
 
   return (
     <div
-      className={`flex size-4 cursor-pointer items-center justify-center rounded-sm border-[1.5px] ${isActive === true || isActive === "maybe" ? "border-teal-500" : "border-neutral-400"}`}
+      className={`flex size-4 cursor-pointer items-center justify-center rounded-sm border-[1.5px] ${isActive === true ? "border-teal-500 bg-teal-500" : isActive === "maybe" ? "border-teal-500" : "border-neutral-400"}`}
       onClick={toggleActive}
     >
       {isActive === true ? (
-        <Check style="size-2.5 stroke-4 text-teal-500" />
+        <Check />
       ) : isActive === "maybe" ? (
-        <Minus style="size-2.5 stroke-4 text-teal-500" />
+        <Minus style="stroke 3.5 stroke-4 text-teal-500" />
       ) : null}
     </div>
   );

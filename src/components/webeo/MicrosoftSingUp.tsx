@@ -6,7 +6,7 @@ export const MicrosoftSingUp = () => {
       icon={<MicrosoftIcon />}
       iconPosition="left"
       label="Microsoft"
-      appareance="ghost"
+      appareance="outline"
     />
   );
 };

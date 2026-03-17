@@ -5,6 +5,6 @@ export interface IButton {
   isLoading?: boolean;
   onClick?: () => void;
   appareance?: "primary" | "ghost" | "outline";
-  icon?: JSX.Element;
+  icon?: JSX.Element | React.ReactNode;
   iconPosition?: "left" | "right";
 }

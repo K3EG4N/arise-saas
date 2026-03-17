@@ -6,7 +6,7 @@ export const GoogleSingUp = () => {
       icon={<GoogleIcon />}
       iconPosition="left"
       label="Google"
-      appareance="ghost"
+      appareance="outline"
     />
   );
 };

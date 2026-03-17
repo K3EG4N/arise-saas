@@ -7,7 +7,7 @@ export const Button = ({
   onClick,
   appareance,
   icon,
-  iconPosition = 'left',
+  iconPosition = "left",
 }: IButton) => {
   return (
     <button
@@ -18,7 +18,7 @@ export const Button = ({
           : appareance === "outline"
             ? "cursor-pointer border-stone-300 bg-white text-black hover:bg-stone-100"
             : appareance === "ghost"
-              ? "py-1 px-3.5 h-fit cursor-pointer border-transparent bg-transparent text-black hover:bg-neutral-200/50"
+              ? "h-fit cursor-pointer border-transparent bg-transparent px-2.5 py-2 text-neutral-700 hover:bg-neutral-200/50"
               : "cursor-pointer bg-teal-500 text-white hover:bg-teal-600"
       }`}
       onClick={onClick && onClick}

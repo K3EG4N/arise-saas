@@ -40,7 +40,7 @@ export const UserBadge = () => {
 
   return (
     <div className="relative flex h-full items-center gap-0.5 whitespace-nowrap">
-      <figure className="size-12 shrink-0 cursor-pointer overflow-hidden rounded-lg">
+      <figure className="size-10 shrink-0 cursor-pointer overflow-hidden rounded-full">
         {employee?.foto ? (
           <img
             src={employee?.foto}
