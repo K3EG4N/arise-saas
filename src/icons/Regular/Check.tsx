@@ -6,8 +6,6 @@ export const Check = ({ style }: IIcon) => {
       viewBox="0 0 24 24"
       stroke="currentColor"
       fill="none"
-      stroke-linecap="round"
-      stroke-linejoin="round"
       className={`${style ?? "size-3 stroke-3 text-white"}`}
     >
       <polyline points="20 6 9 17 4 12"></polyline>

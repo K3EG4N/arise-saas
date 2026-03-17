@@ -4,8 +4,6 @@ export const Info = () => {
       viewBox="0 0 24 24"
       stroke="currentColor"
       fill="none"
-      stroke-linecap="round"
-      stroke-linejoin="round"
       className="size-4 stroke-2 text-red-500"
     >
       <circle cx="12" cy="12" r="10"></circle>
