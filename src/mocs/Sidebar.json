@@ -14,8 +14,16 @@
         "id": 2,
         "name": "Employees",
         "url": "employees",
-        "icon": "employees",
-        "children": []
+        "icon": "helmet",
+        "children": [
+          {
+            "id": 1,
+            "name": "Users",
+            "url": "employees/users",
+            "icon": "user",
+            "children": []
+          }
+        ]
       }
     ]
   }

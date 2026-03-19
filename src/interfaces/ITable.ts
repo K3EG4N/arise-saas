@@ -8,6 +8,7 @@ export interface ITable<T> {
   customizable?: boolean;
   pagination?: IPaginationSettings;
   isLoading?: boolean;
+  hasSearch?: boolean;
   onSelect?: (values: unknown) => void;
   buttons?: ITableButtons;
 }

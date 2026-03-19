@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { Pagination } from "./Pagination";
 import { Button } from "./Button";
 import { Customizable } from "./Customizable";
+import { Input } from "./Input";
+import { Searcher } from "@/icons/Regular/Search";
 import type { ITable, WithSelected } from "@/interfaces/ITable";
 
 export const Table = <T,>({
@@ -14,6 +16,7 @@ export const Table = <T,>({
   customizable,
   pagination,
   isLoading = false,
+  hasSearch = false,
 }: ITable<T>) => {
   const [rows, setRows] = useState<WithSelected<T>[]>([]);
 
@@ -53,7 +56,7 @@ export const Table = <T,>({
           <div className="flex gap-1">
             {buttons.left?.map((button, index) => (
               <Button
-                key={index}
+                key={`btn-left-${index}`}
                 appareance="ghost"
                 icon={button.icon}
                 label={button.label}
@@ -62,15 +65,22 @@ export const Table = <T,>({
             ))}
           </div>
           <div className="flex w-fit items-center justify-end gap-1">
+            {hasSearch && (
+              <div className="w-62.5">
+                <Input placeholder="Search" icon={<Searcher />} />
+              </div>
+            )}
             {customizable && <Customizable columns={columns} />}
             {buttons.right?.map((button, index) => (
-              <Button
-                key={index}
-                appareance="ghost"
-                icon={button.icon}
-                label={button.label}
-                onClick={button.onClick}
-              />
+              <div className="w-fit">
+                <Button
+                  key={`btn-right-${index}`}
+                  appareance="ghost"
+                  icon={button.icon}
+                  label={button.label}
+                  onClick={button.onClick}
+                />
+              </div>
             ))}
           </div>
         </div>
@@ -95,10 +105,10 @@ export const Table = <T,>({
                 />
               </div>
             )}
-            {columns.map((column) => (
+            {columns.map((column, colIndex) => (
               <div
                 className="min-w-0 truncate px-2 py-3 text-sm font-medium text-neutral-700"
-                key={column.id}
+                key={`header-col-${colIndex}`}
                 style={getColumnStyle(column.width)}
               >
                 {column.name}
@@ -117,17 +127,17 @@ export const Table = <T,>({
               {Array.from({ length: SKELETON_ROWS }).map((_, rowIndex) => (
                 <div
                   key={`skeleton-row-${rowIndex}`}
-                  className="flex border-neutral-200 last:border-b"
+                  className="flex border-neutral-200 px-2 last:border-b"
                 >
                   {multiSelect && (
                     <div className="flex w-10 shrink-0 items-center p-2">
                       <div className="h-4 w-4 animate-pulse rounded bg-neutral-200" />
                     </div>
                   )}
-                  {columns.map((column) => (
+                  {columns.map((column, colIndex) => (
                     <div
                       className="min-w-0 px-2 py-3"
-                      key={`skeleton-col-${column.id}`}
+                      key={`skeleton-row-${rowIndex}-col-${colIndex}`}
                       style={getColumnStyle(column.width)}
                     >
                       <div className="h-4 w-full animate-pulse rounded bg-neutral-200" />
@@ -144,10 +154,10 @@ export const Table = <T,>({
                   : "pointer-events-none z-0 opacity-0"
               }`}
             >
-              {rows.map((row, index) => (
+              {rows.map((row, rowIndex) => (
                 <div
-                  key={index}
-                  className="flex border-neutral-200 px-2 last:border-b hover:bg-neutral-50"
+                  key={`row-${rowIndex}`}
+                  className="flex items-center border-neutral-200 px-2 last:border-b hover:bg-neutral-50"
                 >
                   {multiSelect && (
                     <div className="flex w-10 shrink-0 items-center p-2">
@@ -155,20 +165,20 @@ export const Table = <T,>({
                         active={row.selected}
                         onCheck={(v) => {
                           const newRows = [...rows];
-                          newRows[index].selected = v as boolean;
+                          newRows[rowIndex].selected = v as boolean;
                           setRows(newRows);
                         }}
                       />
                     </div>
                   )}
-                  {columns.map((column) => (
+                  {columns.map((column, colIndex) => (
                     <div
                       className="min-w-0 px-2 py-3 text-sm text-neutral-800"
-                      key={column.id}
+                      key={`row-${rowIndex}-col-${colIndex}`}
                       style={getColumnStyle(column.width)}
                     >
                       {column.onRender
-                        ? column.onRender(row, index)
+                        ? column.onRender(row, rowIndex)
                         : String(row[column.field as keyof typeof row] ?? "")}
                     </div>
                   ))}
@@ -183,10 +193,9 @@ export const Table = <T,>({
             </div>
           </section>
 
-          {/* PAGINACIÓN: Siempre visible al fondo */}
           {pagination && (
             <footer className="shrink-0 border-t border-neutral-200 bg-neutral-50 px-1">
-              <Pagination setting={pagination} />
+              <Pagination setting={pagination} loading={isLoading} />
             </footer>
           )}
         </div>

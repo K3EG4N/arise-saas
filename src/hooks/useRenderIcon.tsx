@@ -1,5 +1,6 @@
 import { Chart } from "@/icons/Fill/Chart";
-import { Users } from "@/icons/Fill/Users";
+import { Helmet } from "@/icons/Fill/Helmet";
+import { User } from "@/icons/Fill/User";
 import { Customize } from "@/icons/Regular/Customize";
 import { Download } from "@/icons/Regular/Download";
 import { Filter } from "@/icons/Regular/Filter";
@@ -11,8 +12,8 @@ import { cloneElement } from "react";
 export const useRenderIcon = () => {
   const icons = [
     {
-      name: "employees",
-      icon: <Users />,
+      name: "helmet",
+      icon: <Helmet />,
     },
     {
       name: "chart",
@@ -42,6 +43,10 @@ export const useRenderIcon = () => {
       name: "add",
       icon: <Plus />,
     },
+    {
+      name: "user",
+      icon: <User />,
+    },
   ];
 
   const getIconByName = (name: string, className?: string) => {
@@ -52,7 +57,7 @@ export const useRenderIcon = () => {
     return {
       ...iconData,
       icon: className
-        ? cloneElement(iconData.icon, { className })
+        ? cloneElement(iconData.icon, { style: className })
         : iconData.icon,
     };
   };

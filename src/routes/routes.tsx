@@ -30,6 +30,10 @@ export const router = createBrowserRouter([
             path: "/employees",
             element: <Employees />,
           },
+          {
+            path: "/employees/users",
+            element: <h1>Users</h1>,
+          },
         ],
       },
     ],

@@ -1,4 +1,6 @@
 export interface IBadge {
   text: string;
-  status: "success" | "warning" | "error" | "info";
+  status: IBadgeStatus;
 }
+
+export type IBadgeStatus = "success" | "warning" | "error" | "info";
