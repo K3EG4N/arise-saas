@@ -21,7 +21,7 @@ export const Input = ({
       <div className="flex justify-between">
         {title && (
           <span
-            className={`mb-1.5 block text-sm font-medium ${status === "error" ? "text-red-500" : "text-stone-900"}`}
+            className={`mb-1.5 block text-xs font-medium ${status === "error" ? "text-red-500" : "text-stone-900"}`}
           >
             {title}
           </span>
