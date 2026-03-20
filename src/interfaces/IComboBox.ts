@@ -1,4 +1,5 @@
 export interface IComboBox {
+  title?: string;
   options: IComboBoxOption[];
   placeholder?: string;
   showClear?: boolean;
