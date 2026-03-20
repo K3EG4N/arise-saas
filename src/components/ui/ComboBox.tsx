@@ -11,6 +11,7 @@ export const ComboBox = ({
   onSelect,
   showClear,
   defaultValue,
+  title,
 }: IComboBox) => {
   const defaultOption = options.find((o) => o.value === defaultValue) ?? null;
   const [isOpen, setIsOpen] = useState(false);
@@ -94,6 +95,13 @@ export const ComboBox = ({
 
   return (
     <div ref={wrapperRef} className="relative text-sm">
+      {title && (
+        <span
+          className={`mb-1.5 block text-xs font-medium ${status === "error" ? "text-red-500" : "text-stone-900"}`}
+        >
+          {title}
+        </span>
+      )}
       <div className="relative">
         <input
           ref={inputRef}
