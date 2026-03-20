@@ -1,8 +1,10 @@
+import { useState } from "react";
 import { Badge } from "@/components/ui/Badge";
 import { Person } from "@/components/ui/Person";
 import { Table } from "@/components/ui/Table";
 import { useListEmployees } from "@/services/employee/useListEmployees";
 import { useRenderIcon } from "@/hooks/useRenderIcon";
+import { CreateEmployee } from "./CreateEmployee";
 import { STATUS } from "@/enums/Status";
 import type { IColumn } from "@/interfaces/Generic/IColumns";
 import type { IEmployees } from "@/services/employee/IEmployee";
@@ -12,6 +14,7 @@ import type { IBadgeStatus } from "@/interfaces/IBadge";
 export const Employees = () => {
   const { data, getEmployees, pagination, loading } = useListEmployees();
   const { getIconByName } = useRenderIcon();
+  const [openCreateModal, setOpenCreateModal] = useState(false);
 
   const columns: IColumn<IEmployees>[] = [
     {
@@ -27,13 +30,11 @@ export const Employees = () => {
       id: 2,
       name: "Code",
       field: "code",
-      width: "90px",
     },
     {
       id: 2,
       name: "Dni",
       field: "dni",
-      width: "90px",
     },
     // {
     //   id: 3,
@@ -45,7 +46,6 @@ export const Employees = () => {
       id: 4,
       name: "Phone",
       field: "phone",
-      //   width: "100px",
       visible: false,
     },
     {
@@ -96,6 +96,7 @@ export const Employees = () => {
       {
         label: "Create",
         icon: getIconByName("add")?.icon,
+        onClick: () => setOpenCreateModal(true),
       },
       {
         label: "Export",
@@ -116,6 +117,11 @@ export const Employees = () => {
       <span className="text-sm">
         See all employees of your work and make changes
       </span>
+
+      <CreateEmployee
+        isOpen={openCreateModal}
+        onClose={() => setOpenCreateModal(false)}
+      />
       <Table
         customizable
         multiSelect
