@@ -1,9 +1,8 @@
 import { Notifications } from "./fragments/Notifactions";
 import { UserBadge } from "./fragments/UserBadge";
-import { Divider } from "../ui/Divider";
 import { Search } from "./fragments/Searcher";
-import { BreadCrum } from "../ui/BreadCrum";
 import { useLocation } from "react-router-dom";
+import { BreadCrum, Divider } from "arise-ui";
 
 export const Navbar = () => {
   const location = useLocation();

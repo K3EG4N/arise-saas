@@ -1,8 +1,9 @@
 import { useState, useRef, useEffect } from "react";
 import { useNotification } from "@/hooks/useNotifications";
-import { Bell } from "@/icons/Regular/Bell";
+import { useRenderIcon } from "arise-ui";
 
 export const Notifications = () => {
+  const { getIconByName } = useRenderIcon();
   const { loading, notifications } = useNotification();
   const [open, setOpen] = useState(false);
   const [read, setRead] = useState<Set<number>>(new Set());
@@ -31,7 +32,7 @@ export const Notifications = () => {
         {notifications.length != 0 && (
           <div className="absolute -top-0.5 right-1 size-1.5 rounded-full bg-red-400" />
         )}
-        <Bell />
+        {getIconByName("bell")?.icon}
       </div>
 
       {open && (
@@ -76,7 +77,7 @@ export const Notifications = () => {
 
                     {/* Icon */}
                     <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-linear-to-br from-red-100 to-red-200 text-base">
-                      🔔
+                      {getIconByName("bell")?.icon}
                     </div>
 
                     {/* Content */}

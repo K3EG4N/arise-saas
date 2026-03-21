@@ -1,6 +1,4 @@
-import { Button } from "@/components/ui/Button";
-import { Settings } from "@/icons/Regular/Settings";
-import { User } from "@/icons/Regular/User";
+import { Button, useRenderIcon } from "arise-ui";
 import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -12,6 +10,7 @@ interface LogoutProps {
 export const Logout = ({ active, onClose }: LogoutProps) => {
   const navigate = useNavigate();
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const { getIconByName } = useRenderIcon();
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -50,12 +49,12 @@ export const Logout = ({ active, onClose }: LogoutProps) => {
     >
       <div className="p-2">
         <button className="flex w-full cursor-pointer items-center gap-3 px-4 py-2.5 text-left transition-colors hover:bg-gray-100/80">
-          <User />
+          {getIconByName("user")?.icon}
           <span className="text-sm font-medium text-gray-700">Profile</span>
         </button>
 
         <button className="flex w-full cursor-pointer items-center gap-3 px-4 py-2.5 text-left transition-colors hover:bg-gray-100/80">
-          <Settings />
+          {getIconByName("settings")?.icon}
           <span className="text-sm font-medium text-gray-700">Settings</span>
         </button>
       </div>

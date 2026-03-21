@@ -1,9 +1,7 @@
-import { Button } from "@/components/ui/Button";
-import { Divider } from "@/components/ui/Divider";
-import { Input } from "@/components/ui/Input";
 import { GoogleSingUp } from "@/components/webeo/GoogleSingUp";
 import { MicrosoftSingUp } from "@/components/webeo/MicrosoftSingUp";
 import { useLogin } from "../hooks/useLogin";
+import { Button, Divider, Input } from "arise-ui";
 
 export const Login = () => {
   const { loading, handleLoginClick, errors, setRequest } = useLogin();

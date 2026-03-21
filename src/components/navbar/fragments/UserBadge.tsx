@@ -1,12 +1,12 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { EmployeeContext } from "@/context/EmployeeContext";
-import { ChevronDown } from "@/icons/Regular/ChevronDown";
 import { getTokenData } from "@/utils/token";
 import { Logout } from "./Logout";
-import { User } from "@/icons/Regular/User";
+import { useRenderIcon } from "arise-ui";
 
 export const UserBadge = () => {
+  const { getIconByName } = useRenderIcon();
   const navigate = useNavigate();
   const [openOpcion, setOpenOpcion] = useState(false);
   const { employee, setEmployee } = useContext(EmployeeContext) ?? {};
@@ -50,7 +50,7 @@ export const UserBadge = () => {
           />
         ) : (
           <div className="flex size-full items-center justify-center bg-gray-100">
-            <User />
+            {getIconByName("user")?.icon}
           </div>
         )}
       </figure>
@@ -66,7 +66,7 @@ export const UserBadge = () => {
         className="ml-2 flex h-full cursor-pointer items-center"
         onClick={() => setOpenOpcion((prev) => !prev)}
       >
-        <ChevronDown />
+        {getIconByName("chevronDown")?.icon}
       </div>
       <Logout active={openOpcion} onClose={() => setOpenOpcion(false)} />
     </div>

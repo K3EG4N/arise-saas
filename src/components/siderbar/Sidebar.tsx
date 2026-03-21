@@ -1,9 +1,7 @@
+import { useRenderIcon } from "arise-ui";
 import elements from "../../mocs/Sidebar.json";
 import { useEffect, useState } from "react";
-import { useRenderIcon } from "@/hooks/useRenderIcon";
 import { useLocation, useNavigate } from "react-router-dom";
-import { ChevronLeft } from "@/icons/Regular/ChevronLeft";
-import { ChevronDown } from "@/icons/Regular/ChevronDown";
 
 export const Sidebar = () => {
   const navigate = useNavigate();
@@ -62,7 +60,12 @@ export const Sidebar = () => {
                   : "pointer-events-none opacity-0"
               }`}
             >
-              <ChevronLeft style="size-5 rotate-180 text-neutral-600" />
+              {
+                getIconByName(
+                  "chevronLeft",
+                  "size-5 rotate-180 text-neutral-600",
+                )?.icon
+              }
             </div>
           </div>
 
@@ -88,7 +91,7 @@ export const Sidebar = () => {
               : "size-8 opacity-100"
           }`}
         >
-          <ChevronLeft style="size-4 stroke-2" />
+          {getIconByName("chevronLeft", "size-4 stroke-2")?.icon}
         </button>
       </div>
 
@@ -126,7 +129,7 @@ export const Sidebar = () => {
                         }}
                       >
                         {getIconByName(
-                          it.icon,
+                          it.icon as Parameters<typeof getIconByName>[0],
                           `size-5 shrink-0 transition-all duration-300 ${
                             isSelected
                               ? "text-teal-500 fill-teal-500"
@@ -164,7 +167,7 @@ export const Sidebar = () => {
                               isExpanded ? "rotate-180" : ""
                             }`}
                           >
-                            <ChevronDown />
+                            {getIconByName("chevronDown")?.icon}
                           </div>
                         </div>
                       )}
