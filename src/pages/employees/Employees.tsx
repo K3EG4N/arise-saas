@@ -1,19 +1,22 @@
 import { useState } from "react";
-import { Badge } from "@/components/ui/Badge";
-import { Person } from "@/components/ui/Person";
-import { Table } from "@/components/ui/Table";
-import { useListEmployees } from "@/services/employee/useListEmployees";
-import { useRenderIcon } from "@/hooks/useRenderIcon";
-import { CreateEmployee } from "./CreateEmployee";
+import { CreateEmployee } from "./panels/CreateEmployee";
 import { STATUS } from "@/enums/Status";
-import type { IColumn } from "@/interfaces/Generic/IColumns";
-import type { IEmployees } from "@/services/employee/IEmployee";
-import type { ITableButtons } from "@/interfaces/ITable";
-import type { IBadgeStatus } from "@/interfaces/IBadge";
+import {
+  Badge,
+  Person,
+  Table,
+  useRenderIcon,
+  type IBadgeStatus,
+  type IColumn,
+  type ITableButtons,
+} from "arise-ui";
+import { useListEmployees } from "./hooks/useListEmployees";
+import type { IEmployees } from "./interfaces/IEmployee";
 
 export const Employees = () => {
-  const { data, getEmployees, pagination, loading } = useListEmployees();
   const { getIconByName } = useRenderIcon();
+  const { data, getEmployees, pagination, loading, handleSearch } =
+    useListEmployees();
   const [openCreateModal, setOpenCreateModal] = useState(false);
 
   const columns: IColumn<IEmployees>[] = [
@@ -100,7 +103,7 @@ export const Employees = () => {
       },
       {
         label: "Export",
-        icon: getIconByName("download")?.icon,
+        icon: getIconByName("downloadCloud")?.icon,
       },
     ],
     right: [
@@ -123,9 +126,10 @@ export const Employees = () => {
         onClose={() => setOpenCreateModal(false)}
       />
       <Table
-        customizable
+        // customizable
         multiSelect
-        // hasSearch
+        hasSearch
+        onSearch={handleSearch}
         isLoading={loading}
         columns={columns}
         data={data?.data ?? []}

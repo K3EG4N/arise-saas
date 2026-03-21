@@ -1,4 +1,4 @@
-import type { IEmployee } from "@/interfaces/IEmployee";
+import type { IEmployee } from "@/context/IEmployee";
 import { useState, type ReactNode } from "react";
 import { EmployeeContext } from "./EmployeeContext";
 

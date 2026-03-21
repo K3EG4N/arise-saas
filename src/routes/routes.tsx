@@ -4,7 +4,7 @@ import { Login } from "@/pages/Login";
 import { Dashboard } from "@/pages/Dashboard";
 import { Layout } from "@/components/Layout";
 import { Main } from "@/components/Main";
-import { Employees } from "@/pages/Employees";
+import { Employees } from "@/pages/employees/Employees";
 
 export const router = createBrowserRouter([
   {
