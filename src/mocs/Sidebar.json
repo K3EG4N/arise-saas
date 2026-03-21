@@ -7,7 +7,7 @@
         "id": 1,
         "name": "Dashboard",
         "url": "dashboard",
-        "icon": "chart",
+        "icon": "dashboard",
         "children": []
       },
       {
