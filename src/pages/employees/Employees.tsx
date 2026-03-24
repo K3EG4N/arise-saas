@@ -98,7 +98,7 @@ export const Employees = () => {
       },
       {
         label: "Create",
-        icon: getIconByName("add")?.icon,
+        icon: getIconByName("add", "stroke-2 size-5")?.icon,
         onClick: () => setOpenCreateModal(true),
       },
       {

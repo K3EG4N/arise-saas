@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import type { ICollection } from "@/interfaces/ICollection";
-import type { IEmployees } from "@/pages/employees/interfaces/IEmployee";
 import { defaultPagination, type IFilter } from "arise-ui";
 import { EmployeeService } from "@/services/EmployeeService";
 import { useAbortController } from "@/hooks/useAbortControler";
+import type { ICollection } from "@/interfaces/ICollection";
+import type { IEmployees } from "@/pages/employees/interfaces/IEmployee";
 
 export const useListEmployees = () => {
   const { getSignal } = useAbortController();
