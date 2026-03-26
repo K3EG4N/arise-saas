@@ -1,5 +1,8 @@
 import { api } from "./BaseRequest";
-import type { IEmployees } from "@/pages/employees/interfaces/IEmployee";
+import type {
+  ICreateEmployeeRequest,
+  IEmployees,
+} from "@/pages/employees/interfaces/IEmployee";
 import type { IFilter } from "arise-ui";
 import type { ICollection } from "@/interfaces/ICollection";
 
@@ -10,6 +13,11 @@ const GetAllEmployees = (filter: IFilter, signal?: AbortSignal) => {
   });
 };
 
+const CreateEmployee = (data: Partial<ICreateEmployeeRequest>) => {
+  return api.post("/employee", data);
+};
+
 export const EmployeeService = {
   GetAllEmployees,
+  CreateEmployee,
 };

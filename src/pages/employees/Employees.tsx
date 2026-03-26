@@ -52,6 +52,12 @@ export const Employees = () => {
       visible: false,
     },
     {
+      id: 4,
+      name: "Department",
+      field: "department",
+      visible: false,
+    },
+    {
       id: 3,
       name: "Gender",
       field: "gender",
