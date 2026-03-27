@@ -11,7 +11,8 @@ interface ICreateEmployeeProps {
 
 export const CreateEmployee = ({ isOpen, onClose }: ICreateEmployeeProps) => {
   const { getOptions, departmentOptions } = useDepartmentOptions();
-  const { loading, request, createEmployee, setRequest } = useCreateEmployee();
+  const { loading, request, response, createEmployee, setRequest } =
+    useCreateEmployee();
 
   useEffect(() => {
     if (isOpen) {
@@ -27,32 +28,63 @@ export const CreateEmployee = ({ isOpen, onClose }: ICreateEmployeeProps) => {
       isOpen={isOpen}
       onClose={onClose}
       onSuccess={createEmployee}
+      primaryTextButton="Create"
       loadingPhrases={["loading...", "Create Employee..."]}
       isLoading={loading}
+      disabledButton={
+        !request.name ||
+        !request.lastName ||
+        !request.dni ||
+        !request.departmentId
+      }
+      statusBanner={
+        response && {
+          status: response?.status as 200 | 400 | 500,
+          description: response?.message,
+          hidden: !response,
+        }
+      }
     >
       <span className="mb-3 inline-block text-xs font-medium text-neutral-600 uppercase">
         Personal Information
       </span>
       <div className="flex justify-between gap-3">
-        <div className="inline-block h-45 w-[50%]">
-          <DropZone />
+        <div className="inline-block h-50 w-[50%]">
+          <DropZone
+            onSubmit={(fileUpload) => {
+              const file = Array.isArray(fileUpload)
+                ? fileUpload[0]
+                : fileUpload;
+              setRequest((prev) => ({
+                ...prev,
+                file: {
+                  name: file.name,
+                  extension: file.extension,
+                  fileData: file.fileData,
+                },
+              }));
+            }}
+          />
         </div>
-        <div className="flex w-[50%] flex-col gap-[5.5px]">
+        <div className="flex w-[50%] flex-col justify-between">
           <Input
             title="Name"
+            defaultValue={request.name}
             onChange={(v) => setRequest((prev) => ({ ...prev, name: v }))}
           />
           <Input
             title="Last Name"
+            defaultValue={request.lastName}
             onChange={(v) => setRequest((prev) => ({ ...prev, lastName: v }))}
           />
           <Input
             title="Dni"
+            defaultValue={request.dni}
             onChange={(v) => setRequest((prev) => ({ ...prev, dni: v }))}
           />
         </div>
       </div>
-      <div className="mt-2 grid grid-cols-2 gap-2">
+      <div className="mt-3 grid grid-cols-2 gap-2">
         <Input
           title="Phone"
           onChange={(v) => setRequest((prev) => ({ ...prev, phone: v }))}
@@ -66,7 +98,7 @@ export const CreateEmployee = ({ isOpen, onClose }: ICreateEmployeeProps) => {
       <span className="my-3 inline-block text-xs font-medium text-neutral-600 uppercase">
         Employment information
       </span>
-      <div className="mb-2 flex flex-col gap-2">
+      <div className="mb-2 flex flex-col gap-4">
         <DatePicker
           title="Birthday"
           onSelectDate={(d) =>
@@ -80,7 +112,7 @@ export const CreateEmployee = ({ isOpen, onClose }: ICreateEmployeeProps) => {
           onSelect={(v) => setRequest((prev) => ({ ...prev, departmentId: v }))}
         />
       </div>
-      <pre>{JSON.stringify(request, null, 2)}</pre>
+      {/* <pre>{JSON.stringify(request, null, 2)}</pre> */}
     </Modal>
   );
 };

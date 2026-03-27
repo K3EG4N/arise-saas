@@ -11,11 +11,15 @@ export interface IEmployees {
 
 export interface ICreateEmployeeRequest {
   name: string;
-  image?: string;
   lastName: string;
   dni: string;
   phone?: string;
   gender: string;
   birthDate: string;
   departmentId: string;
+  file?: {
+    name: string;
+    extension: string;
+    fileData: string;
+  };
 }

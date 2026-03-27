@@ -5,6 +5,7 @@ import type {
 } from "@/pages/employees/interfaces/IEmployee";
 import type { IFilter } from "arise-ui";
 import type { ICollection } from "@/interfaces/ICollection";
+import type { IBaseResponse } from "@/interfaces/IBaseResponse";
 
 const GetAllEmployees = (filter: IFilter, signal?: AbortSignal) => {
   return api.get<ICollection<IEmployees>>("/employee", {
@@ -14,7 +15,7 @@ const GetAllEmployees = (filter: IFilter, signal?: AbortSignal) => {
 };
 
 const CreateEmployee = (data: Partial<ICreateEmployeeRequest>) => {
-  return api.post("/employee", data);
+  return api.post<IBaseResponse>("/employee", data);
 };
 
 export const EmployeeService = {
