@@ -32,7 +32,7 @@ export const Notifications = () => {
         {notifications.length != 0 && (
           <div className="absolute -top-0.5 right-1 size-1.5 rounded-full bg-red-400" />
         )}
-        {getIconByName("bell")?.icon}
+        {getIconByName("bell", "size-4.5 stroke-2")?.icon}
       </div>
 
       {open && (

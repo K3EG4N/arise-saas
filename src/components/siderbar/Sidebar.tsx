@@ -1,5 +1,5 @@
-import { useRenderIcon } from "arise-ui";
 import elements from "../../mocs/Sidebar.json";
+import { useRenderIcon } from "arise-ui";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -133,7 +133,7 @@ export const Sidebar = () => {
                           `size-5 shrink-0 transition-all duration-300 ${
                             isSelected
                               ? "text-teal-500 fill-teal-500"
-                              : "text-neutral-600 group-hover:text-teal-500 group-hover:fill-teal-500"
+                              : "text-neutral-600 fill-neutral-600 group-hover:text-teal-500 group-hover:fill-teal-500"
                           }`,
                         )?.icon ?? true}
 

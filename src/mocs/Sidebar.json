@@ -26,5 +26,18 @@
         ]
       }
     ]
+  },
+  {
+    "orden": 1,
+    "title": "OPERATIONS",
+    "items": [
+      {
+        "id": 3,
+        "name": "Teams",
+        "url": "teams",
+        "icon": "team",
+        "children": []
+      }
+    ]
   }
 ]
