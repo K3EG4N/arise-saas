@@ -56,6 +56,7 @@ export const Employees = () => {
       name: "Department",
       field: "department",
       visible: false,
+      width: "220px",
     },
     {
       id: 3,
@@ -104,20 +105,33 @@ export const Employees = () => {
       },
       {
         label: "Create",
-        icon: getIconByName("add", "stroke-2 size-5")?.icon,
-        onClick: () => setOpenCreateModal(true),
+        icon: getIconByName("user")?.icon,
+        type: "dropdown",
+        options: [
+          {
+            label: "Single",
+            value: "single",
+            icon: getIconByName("add", "stroke-2 size-5")?.icon,
+            onClick: () => setOpenCreateModal(true),
+          },
+          {
+            label: "Bulk",
+            value: "bulk",
+            icon: getIconByName("uploadCloud", "size-4 stroke-2 ml-1")?.icon,
+          },
+        ],
       },
       {
         label: "Export",
         icon: getIconByName("downloadCloud")?.icon,
       },
     ],
-    right: [
-      {
-        label: "Filter",
-        icon: getIconByName("filter")?.icon,
-      },
-    ],
+    // right: [
+    //   {
+    //     label: "Filter",
+    //     icon: getIconByName("filter")?.icon,
+    //   },
+    // ],
   };
 
   return (
@@ -132,7 +146,6 @@ export const Employees = () => {
         onClose={() => setOpenCreateModal(false)}
       />
       <Table
-        // customizable
         multiSelect
         hasSearch
         onSearch={handleSearch}

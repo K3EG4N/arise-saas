@@ -17,6 +17,8 @@ export const CreateEmployee = ({ isOpen, onClose }: ICreateEmployeeProps) => {
   useEffect(() => {
     if (isOpen) {
       getOptions();
+    } else {
+      setRequest({});
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]);
