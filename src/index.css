@@ -2,6 +2,8 @@
 @import "tailwindcss";
 @source "../node_modules/arise-ui/dist";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --font-outfit: "Outfit", sans-serif;
   --font-dance: "Dancing Script";

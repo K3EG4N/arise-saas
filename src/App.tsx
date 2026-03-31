@@ -1,11 +1,14 @@
 import { RouterProvider } from "react-router-dom";
 import { router } from "./routes";
-import { EmployeeProvider } from "./context/EmployeeProvider";
+import { SessionUserProvider } from "./context/SessionUserProvider";
+import { ThemeProvider } from "./context/ThemeProvider";
 
 export const App = () => {
   return (
-    <EmployeeProvider>
-      <RouterProvider router={router} />
-    </EmployeeProvider>
+    <ThemeProvider>
+      <SessionUserProvider>
+        <RouterProvider router={router} />
+      </SessionUserProvider>
+    </ThemeProvider>
   );
 };
