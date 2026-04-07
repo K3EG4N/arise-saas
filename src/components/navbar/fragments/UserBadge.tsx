@@ -5,7 +5,7 @@ import { Logout } from "./Logout";
 import { useRenderIcon } from "arise-ui";
 import { SessionUserContext } from "@/context/SessionUserContext";
 
-export const UserBadge = () => {
+export const UserBadge = ({ collapsed }: { collapsed: boolean }) => {
   const navigate = useNavigate();
   const toggleRef = useRef<HTMLDivElement>(null);
   const { getIconByName } = useRenderIcon();
@@ -40,40 +40,42 @@ export const UserBadge = () => {
   }, [navigate, setUser]);
 
   return (
-    <div className="relative flex h-full items-center whitespace-nowrap">
-      <figure className="size-10 shrink-0 cursor-pointer overflow-hidden rounded">
-        {user?.foto ? (
-          <img
-            src={user?.foto}
-            alt=""
-            draggable={false}
-            className="size-full object-cover"
-          />
-        ) : (
-          <div className="flex size-9 items-center justify-center rounded bg-gray-200/70 font-medium">
-            {user?.name.charAt(0)}
-            {user?.name.split(" ")[1]?.charAt(0) || ""}
+    <div
+      className={`flex w-full cursor-pointer flex-col items-center gap-2 rounded text-neutral-600 transition-all`}
+    >
+      <div className="flex w-full items-center gap-1">
+        <figure className="size-10 shrink-0 cursor-pointer overflow-hidden rounded">
+          {user?.foto ? (
+            <img
+              src={user?.foto}
+              alt=""
+              draggable={false}
+              className="size-full object-cover"
+            />
+          ) : (
+            <div className="flex size-full items-center justify-center rounded bg-gray-200/70 font-medium">
+              {user?.name.charAt(0)}
+              {user?.name.split(" ")[1]?.charAt(0) || ""}
+            </div>
+          )}
+        </figure>
+        <div
+          className={`flex w-full justify-between transition-all duration-300 ${
+            collapsed ? "w-0 opacity-0" : "w-36 opacity-100"
+          }`}
+        >
+          <div className="ml-1.5 flex w-full flex-col justify-center">
+            <span className="truncate text-sm font-medium">
+              {user?.name.split(" ")[0]} {user?.name.split(" ")[1]}
+            </span>
+            <span className="text-xs">{user?.email}</span>
           </div>
-        )}
-      </figure>
-      <div className="ml-1.5 flex w-fit flex-col">
-        <span className="truncate text-sm font-medium">
-          {user?.name.split(" ")[0]} {user?.name.split(" ")[1]}
-        </span>
+          <div className="flex items-center">
+            {getIconByName("chevronRight", "size-4 stroke-2")?.icon}
+          </div>
+        </div>
       </div>
-      <div
-        ref={toggleRef}
-        className="ml-2 flex h-full cursor-pointer items-center"
-        onClick={() => setOpenOpcion((prev) => !prev)}
-      >
-        {
-          getIconByName(
-            "chevronDown",
-            `size-4 stroke-2 transition-transform ${openOpcion ? "rotate-180" : ""}`,
-          )?.icon
-        }
-      </div>
-      <Logout
+      {/* <Logout
         active={openOpcion}
         onClose={() => setOpenOpcion(false)}
         toggleRef={toggleRef}
@@ -82,7 +84,7 @@ export const UserBadge = () => {
           email: user?.email ?? "",
           photo: user?.foto,
         }}
-      />
+      /> */}
     </div>
   );
 };

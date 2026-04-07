@@ -5,6 +5,7 @@ import { useRenderIcon } from "arise-ui";
 export const Notifications = () => {
   const { getIconByName } = useRenderIcon();
   const { loading, notifications } = useNotification();
+  const [isHovered, setIsHovered] = useState(false);
   const [open, setOpen] = useState(false);
   const [read, setRead] = useState<Set<number>>(new Set());
   const panelRef = useRef<HTMLDivElement>(null);
@@ -28,13 +29,23 @@ export const Notifications = () => {
 
   return (
     <section className="relative inline-block" ref={panelRef}>
-      <div className="relative cursor-pointer" onClick={handleOpen}>
+      <div
+        className="relative cursor-pointer"
+        onClick={handleOpen}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
         {notifications.length != 0 && (
           <div className="absolute -top-0.5 right-1 size-1.5 rounded-full bg-red-400" />
         )}
-        {getIconByName("bell", "size-4.5 stroke-2")?.icon}
+        {
+          getIconByName(
+            "bell",
+            "size-5 text-neutral-600 cursor-pointer hover:fill-teal-500",
+            isHovered,
+          )?.icon
+        }
       </div>
-
       {open && (
         <div className="animate-in fade-in zoom-in-95 absolute top-[calc(100%+10px)] right-0 z-50 w-80 origin-top-right overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-xl shadow-black/10 duration-200">
           <div className="flex items-center justify-between border-b border-gray-100 px-4 py-3.5">
