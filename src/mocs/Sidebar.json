@@ -37,6 +37,49 @@
         "url": "teams",
         "icon": "team",
         "children": []
+      },
+      {
+        "id": 4,
+        "name": "Organization",
+        "url": "organization",
+        "icon": "structureTree",
+        "children": [
+          {
+            "id": 2,
+            "name": "Areas",
+            "url": "organization/areas",
+            "icon": "",
+            "children": []
+          },
+          {
+            "id": 2,
+            "name": "Departments",
+            "url": "organization/departments",
+            "icon": "",
+            "children": []
+          },
+          {
+            "id": 2,
+            "name": "Puestos",
+            "url": "organization/puestos",
+            "icon": "",
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "name": "Approvals",
+        "url": "approvals",
+        "icon": "roundedCheck",
+        "children": []
+      },
+      {
+        "id": 6,
+        "name": "Calendar",
+        "url": "calendar",
+        "icon": "calendarDays",
+        "children": []
       }
     ]
   }

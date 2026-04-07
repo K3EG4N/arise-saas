@@ -2,6 +2,7 @@ import elements from "../../mocs/Sidebar.json";
 import { useRenderIcon } from "arise-ui";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { UserBadge } from "../navbar/fragments/UserBadge";
 
 export const Sidebar = () => {
   const navigate = useNavigate();
@@ -9,6 +10,7 @@ export const Sidebar = () => {
   const { getIconByName } = useRenderIcon();
   const [current, setCurrent] = useState<number | string>(location?.state?.id);
   const [collapsed, setCollapsed] = useState(false);
+  const [hoveredId, setHoveredId] = useState<number | null>(null);
   const [expandedMenus, setExpandedMenus] = useState<number[]>([]);
 
   useEffect(() => {
@@ -33,8 +35,8 @@ export const Sidebar = () => {
 
   return (
     <div
-      className={`font-outfit flex flex-col gap-5 rounded bg-neutral-50 p-3 shadow transition-all duration-300 ${
-        collapsed ? "w-20" : "w-64"
+      className={`font-outfit flex flex-col gap-2.5 rounded bg-neutral-50 p-3 shadow transition-all duration-300 ${
+        collapsed ? "w-17" : "w-64"
       }`}
     >
       <div className="flex items-center justify-between">
@@ -95,129 +97,139 @@ export const Sidebar = () => {
         </button>
       </div>
 
-      <section className="size-full">
-        {elements.map((element) => (
-          <article key={element.title}>
-            <div
-              className={`overflow-hidden transition-all duration-300 ${
-                collapsed ? "mb-0 h-0 opacity-0" : "mb-2 h-4.5 opacity-100"
-              }`}
-            >
-              <span className="text-[11px] font-medium text-neutral-600/60 uppercase">
-                {element.title}
-              </span>
-            </div>
+      <section className="flex size-full flex-col justify-between">
+        <div>
+          {elements.map((element) => (
+            <article key={element.title}>
+              <div
+                className={`overflow-hidden transition-all duration-300 ${
+                  collapsed ? "mb-0 h-0 opacity-0" : "mb-2 h-4.5 opacity-100"
+                }`}
+              >
+                <span className="text-[11px] font-medium text-neutral-600/60 uppercase">
+                  {element.title}
+                </span>
+              </div>
 
-            <ul className="mt-1 flex flex-col gap-2">
-              {element.items.map((it) => {
-                const isSelected = current === it.id;
-                const hasChildren = it.children && it.children.length > 0;
-                const isExpanded = expandedMenus.includes(it.id);
+              <ul className="mt-1 flex flex-col gap-2">
+                {element.items.map((it) => {
+                  const isSelected = current === it.id;
+                  const hasChildren = it.children && it.children.length > 0;
+                  const isExpanded = expandedMenus.includes(it.id);
+                  const isHovered = hoveredId === it.id;
 
-                return (
-                  <li key={`parent-${it.id}`} className="flex flex-col">
-                    <div
-                      className={`group flex items-center rounded transition-all hover:bg-teal-600/15 ${
-                        isSelected ? "bg-teal-600/15" : ""
-                      } ${collapsed ? "w-11" : "w-full"}`}
-                    >
+                  return (
+                    <li key={`parent-${it.id}`} className="flex flex-col">
                       <div
-                        className="flex flex-1 cursor-pointer items-center gap-3 px-3 py-2"
-                        onClick={() => {
-                          setCurrent(it.id);
-                          navigate(it.url, getRoutePath(it.id));
-                        }}
+                        onMouseEnter={() => setHoveredId(it.id)}
+                        onMouseLeave={() => setHoveredId(null)}
+                        className={`group flex items-center rounded transition-all hover:bg-teal-600/15 ${
+                          isSelected ? "bg-teal-600/15" : ""
+                        } ${collapsed ? "w-11" : "w-full"}`}
                       >
-                        {getIconByName(
-                          it.icon as Parameters<typeof getIconByName>[0],
-                          `size-5 shrink-0 transition-all duration-300 ${
-                            isSelected
-                              ? "text-teal-500 fill-teal-500"
-                              : "text-neutral-600 fill-neutral-600 group-hover:text-teal-500 group-hover:fill-teal-500"
-                          }`,
-                        )?.icon ?? true}
-
                         <div
-                          className={`overflow-hidden transition-all duration-300 ${
-                            collapsed ? "w-0 opacity-0" : "w-36 opacity-100"
-                          }`}
+                          className="flex flex-1 cursor-pointer items-center gap-3 px-3 py-2"
+                          onClick={() => {
+                            setCurrent(it.id);
+                            navigate(it.url, getRoutePath(it.id));
+                          }}
                         >
-                          <span
-                            className={`block font-medium whitespace-nowrap transition-all ${
+                          {getIconByName(
+                            it.icon as Parameters<typeof getIconByName>[0],
+                            `size-5 shrink-0 ${
                               isSelected
-                                ? "text-teal-700"
-                                : "text-neutral-600 group-hover:text-teal-700"
+                                ? "text-teal-500 fill-teal-500"
+                                : "text-neutral-600 group-hover:fill-teal-500"
+                            }`,
+                            isSelected ? true : isHovered,
+                          )?.icon ?? true}
+
+                          <div
+                            className={`overflow-hidden transition-all duration-300 ${
+                              collapsed ? "w-0 opacity-0" : "w-36 opacity-100"
                             }`}
                           >
-                            {it.name}
-                          </span>
+                            <span
+                              className={`block font-medium whitespace-nowrap transition-all ${
+                                isSelected
+                                  ? "text-teal-700"
+                                  : "text-neutral-600 group-hover:text-teal-700"
+                              }`}
+                            >
+                              {it.name}
+                            </span>
+                          </div>
                         </div>
+
+                        {hasChildren && !collapsed && (
+                          <div
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              toggleMenu(it.id);
+                            }}
+                            className="flex h-full cursor-pointer items-center pr-3 pl-1 text-neutral-400 hover:text-teal-600"
+                          >
+                            <div
+                              className={`transition-transform duration-300 ${
+                                isExpanded ? "rotate-180" : ""
+                              }`}
+                            >
+                              {getIconByName("chevronDown")?.icon}
+                            </div>
+                          </div>
+                        )}
                       </div>
 
-                      {hasChildren && !collapsed && (
+                      {hasChildren && (
                         <div
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            toggleMenu(it.id);
-                          }}
-                          className="flex h-full cursor-pointer items-center pr-3 pl-1 text-neutral-400 hover:text-teal-600"
+                          className={`grid transition-all duration-300 ease-in-out ${
+                            isExpanded && !collapsed
+                              ? "mt-1 grid-rows-[1fr] opacity-100"
+                              : "grid-rows-[0fr] opacity-0"
+                          }`}
                         >
-                          <div
-                            className={`transition-transform duration-300 ${
-                              isExpanded ? "rotate-180" : ""
-                            }`}
-                          >
-                            {getIconByName("chevronDown")?.icon}
+                          <div className="overflow-hidden">
+                            <ul className="relative ml-5.5 flex flex-col gap-1 border-l border-neutral-300 py-1 pl-4">
+                              {it.children.map((child) => {
+                                const childIdKey = `${it.id}-${child.id}`;
+                                const isChildSelected = current === childIdKey;
+
+                                return (
+                                  <li
+                                    key={childIdKey}
+                                    onClick={() => {
+                                      setCurrent(childIdKey);
+                                      navigate(
+                                        child.url,
+                                        getRoutePath(child.id),
+                                      );
+                                    }}
+                                    className={`relative flex cursor-pointer items-center rounded px-3 py-1.5 transition-all hover:bg-teal-600/10 ${
+                                      isChildSelected
+                                        ? "bg-teal-600/10 font-semibold text-teal-700"
+                                        : "text-neutral-500 hover:text-teal-700"
+                                    }`}
+                                  >
+                                    <span className="absolute top-1/2 -left-4 h-px w-3 -translate-y-1/2 bg-neutral-300"></span>
+
+                                    <span className="py-0.5 text-sm whitespace-nowrap">
+                                      {child.name}
+                                    </span>
+                                  </li>
+                                );
+                              })}
+                            </ul>
                           </div>
                         </div>
                       )}
-                    </div>
-
-                    {hasChildren && (
-                      <div
-                        className={`grid transition-all duration-300 ease-in-out ${
-                          isExpanded && !collapsed
-                            ? "mt-1 grid-rows-[1fr] opacity-100"
-                            : "grid-rows-[0fr] opacity-0"
-                        }`}
-                      >
-                        <div className="overflow-hidden">
-                          <ul className="relative ml-5.5 flex flex-col gap-1 border-l border-neutral-300 py-1 pl-4">
-                            {it.children.map((child) => {
-                              const childIdKey = `${it.id}-${child.id}`;
-                              const isChildSelected = current === childIdKey;
-
-                              return (
-                                <li
-                                  key={childIdKey}
-                                  onClick={() => {
-                                    setCurrent(childIdKey);
-                                    navigate(child.url, getRoutePath(child.id));
-                                  }}
-                                  className={`relative flex cursor-pointer items-center rounded px-3 py-1.5 transition-all hover:bg-teal-600/10 ${
-                                    isChildSelected
-                                      ? "bg-teal-600/10 font-semibold text-teal-700"
-                                      : "text-neutral-500 hover:text-teal-700"
-                                  }`}
-                                >
-                                  <span className="absolute top-1/2 -left-4 h-px w-3 -translate-y-1/2 bg-neutral-300"></span>
-
-                                  <span className="py-0.5 text-sm whitespace-nowrap">
-                                    {child.name}
-                                  </span>
-                                </li>
-                              );
-                            })}
-                          </ul>
-                        </div>
-                      </div>
-                    )}
-                  </li>
-                );
-              })}
-            </ul>
-          </article>
-        ))}
+                    </li>
+                  );
+                })}
+              </ul>
+            </article>
+          ))}
+        </div>
+        <UserBadge collapsed={collapsed} />
       </section>
     </div>
   );
