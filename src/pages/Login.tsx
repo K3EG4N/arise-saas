@@ -1,5 +1,3 @@
-import { GoogleSingUp } from "@/components/webeo/GoogleSingUp";
-import { MicrosoftSingUp } from "@/components/webeo/MicrosoftSingUp";
 import { useLogin } from "../hooks/useLogin";
 import { Button, Divider, Input } from "arise-ui";
 
@@ -15,10 +13,10 @@ export const Login = () => {
           your projects moving forward.
         </p>
         <div className="flex w-full flex-col gap-4">
-          <div className="flex w-full items-center justify-center gap-2.5 text-sm">
+          {/* <div className="flex w-full items-center justify-center gap-2.5 text-sm">
             <GoogleSingUp />
             <MicrosoftSingUp />
-          </div>
+          </div> */}
           <Divider label="or sing up with" />
           <div className="flex flex-col gap-4">
             <Input
