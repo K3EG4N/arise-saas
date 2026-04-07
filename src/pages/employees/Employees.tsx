@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CreateEmployee } from "./panels/CreateEmployee";
+import { CreateSingleEmployee } from "./components/CreateSingleEmployee";
 import { STATUS } from "@/enums/Status";
 import {
   Badge,
@@ -12,12 +12,14 @@ import {
 } from "arise-ui";
 import { useListEmployees } from "./hooks/useListEmployees";
 import type { IEmployees } from "./interfaces/IEmployee";
+import { CreateMassiveEmployee } from "./components/CreateMassiveEmployee";
 
 export const Employees = () => {
   const { getIconByName } = useRenderIcon();
   const { data, getEmployees, pagination, loading, handleSearch } =
     useListEmployees();
-  const [openCreateModal, setOpenCreateModal] = useState(false);
+  const [openCreateSingle, setOpenCreateSingle] = useState(false);
+  const [openCreateMassive, setOpenCreateMassive] = useState(false);
 
   const columns: IColumn<IEmployees>[] = [
     {
@@ -39,12 +41,6 @@ export const Employees = () => {
       name: "Dni",
       field: "dni",
     },
-    // {
-    //   id: 3,
-    //   name: "Email",
-    //   field: "email",
-    //   width: "300px",
-    // },
     {
       id: 4,
       name: "Phone",
@@ -67,14 +63,12 @@ export const Employees = () => {
       id: 5,
       name: "Joined Date",
       field: "hireDate",
-      //   width: "100px",
       visible: false,
     },
     {
       id: 6,
       name: "Birth Date",
       field: "birthDate",
-      //   width: "100px",
     },
     {
       id: 7,
@@ -112,12 +106,13 @@ export const Employees = () => {
             label: "Single",
             value: "single",
             icon: getIconByName("add", "stroke-2 size-5")?.icon,
-            onClick: () => setOpenCreateModal(true),
+            onClick: () => setOpenCreateSingle(true),
           },
           {
             label: "Bulk",
             value: "bulk",
             icon: getIconByName("uploadCloud", "size-4 stroke-2 ml-1")?.icon,
+            onClick: () => setOpenCreateMassive(true),
           },
         ],
       },
@@ -141,9 +136,13 @@ export const Employees = () => {
         See all employees of your work and make changes
       </span>
 
-      <CreateEmployee
-        isOpen={openCreateModal}
-        onClose={() => setOpenCreateModal(false)}
+      <CreateSingleEmployee
+        isOpen={openCreateSingle}
+        onClose={() => setOpenCreateSingle(false)}
+      />
+      <CreateMassiveEmployee
+        isOpen={openCreateMassive}
+        onClose={() => setOpenCreateMassive(false)}
       />
       <Table
         multiSelect

@@ -1,15 +1,17 @@
 import { useDepartmentOptions } from "@/hooks/department/useDepartmentOptions";
-import { ComboBox, DatePicker, DropZone, Input, Modal } from "arise-ui";
+import {
+  ComboBox,
+  DatePicker,
+  DropZone,
+  Input,
+  Modal,
+  type IDisclosure,
+} from "arise-ui";
 import { useEffect } from "react";
 import { useCreateEmployee } from "../hooks/useCreateEmployee";
 import { GENDER_OPTIONS } from "@/enums/Gender";
 
-interface ICreateEmployeeProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
-
-export const CreateEmployee = ({ isOpen, onClose }: ICreateEmployeeProps) => {
+export const CreateSingleEmployee = ({ isOpen, onClose }: IDisclosure) => {
   const { getOptions, departmentOptions } = useDepartmentOptions();
   const { loading, request, response, createEmployee, setRequest } =
     useCreateEmployee();
@@ -25,8 +27,8 @@ export const CreateEmployee = ({ isOpen, onClose }: ICreateEmployeeProps) => {
 
   return (
     <Modal
-      title="Create User"
-      description="Register a new user and assign them to a role."
+      title="Create Individual Employee"
+      description="Register a new employee and assign them to a department."
       isOpen={isOpen}
       onClose={onClose}
       onSuccess={createEmployee}
@@ -53,6 +55,7 @@ export const CreateEmployee = ({ isOpen, onClose }: ICreateEmployeeProps) => {
       <div className="flex justify-between gap-3">
         <div className="inline-block h-50 w-[50%]">
           <DropZone
+            fileTypes={["png", "jpg", "jpe"]}
             onSubmit={(fileUpload) => {
               const file = Array.isArray(fileUpload)
                 ? fileUpload[0]
