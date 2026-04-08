@@ -1,10 +1,16 @@
+import type { IDisclosure } from "arise-ui";
+
 export interface IEmployees {
   name: string;
   email: string;
   photo: string;
   code: string;
-  phone?: string;
+  gender: string;
+  dni: string;
+  department: string;
+  phone: string;
   hireDate: string;
+  birthDate: string;
   status: string;
   statusCode: string;
 }
@@ -22,4 +28,8 @@ export interface ICreateEmployeeRequest {
     extension: string;
     fileData: string;
   };
+}
+
+export interface IUpdateEmployeeModal extends IDisclosure {
+  employee: IEmployees | undefined;
 }

@@ -3,6 +3,7 @@ import { CreateSingleEmployee } from "./components/CreateSingleEmployee";
 import { STATUS } from "@/enums/Status";
 import {
   Badge,
+  DropDown,
   Person,
   Table,
   useRenderIcon,
@@ -13,11 +14,14 @@ import {
 import { useListEmployees } from "./hooks/useListEmployees";
 import type { IEmployees } from "./interfaces/IEmployee";
 import { CreateMassiveEmployee } from "./components/CreateMassiveEmployee";
+import { UpdateEmployee } from "./components/UpdateEmployee";
 
 export const Employees = () => {
   const { getIconByName } = useRenderIcon();
   const { data, getEmployees, pagination, loading, handleSearch } =
     useListEmployees();
+  const [employee, setEmployee] = useState<IEmployees>();
+  const [openUpdateEmployee, setOpenUpdateEmployee] = useState(false);
   const [openCreateSingle, setOpenCreateSingle] = useState(false);
   const [openCreateMassive, setOpenCreateMassive] = useState(false);
 
@@ -83,11 +87,34 @@ export const Employees = () => {
         />
       ),
     },
-    // {
-    //   id: 6,
-    //   name: "Actions",
-    //   field: "action",
-    // },
+    {
+      id: 6,
+      name: "Actions",
+      field: "action",
+      width: "100px",
+      onRender: (item) => (
+        <DropDown
+          appareance="none"
+          icon={getIconByName("more")?.icon}
+          options={[
+            {
+              label: "Edit",
+              value: "edit",
+              icon: getIconByName("edit", "size-4.5")?.icon,
+              onClick: () => {
+                setOpenUpdateEmployee(true);
+                setEmployee(item);
+              },
+            },
+            {
+              label: "Delete",
+              value: "delete",
+              icon: getIconByName("trash", "size-4.5")?.icon,
+            },
+          ]}
+        />
+      ),
+    },
   ];
 
   const buttons: ITableButtons = {
@@ -118,7 +145,7 @@ export const Employees = () => {
       },
       {
         label: "Export",
-        icon: getIconByName("downloadCloud")?.icon,
+        icon: getIconByName("downloadCloud", "size-4.5")?.icon,
       },
     ],
     // right: [
@@ -140,9 +167,16 @@ export const Employees = () => {
         isOpen={openCreateSingle}
         onClose={() => setOpenCreateSingle(false)}
       />
+
       <CreateMassiveEmployee
         isOpen={openCreateMassive}
         onClose={() => setOpenCreateMassive(false)}
+      />
+
+      <UpdateEmployee
+        isOpen={openUpdateEmployee}
+        onClose={() => setOpenUpdateEmployee(false)}
+        employee={employee}
       />
       <Table
         multiSelect
