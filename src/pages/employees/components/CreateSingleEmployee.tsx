@@ -7,23 +7,13 @@ import {
   Modal,
   type IDisclosure,
 } from "arise-ui";
-import { useEffect } from "react";
 import { useCreateEmployee } from "../hooks/useCreateEmployee";
 import { GENDER_OPTIONS } from "@/enums/Gender";
 
 export const CreateSingleEmployee = ({ isOpen, onClose }: IDisclosure) => {
-  const { getOptions, departmentOptions } = useDepartmentOptions();
+  const { departmentOptions } = useDepartmentOptions();
   const { loading, request, response, createEmployee, setRequest } =
     useCreateEmployee();
-
-  useEffect(() => {
-    if (isOpen) {
-      getOptions();
-    } else {
-      setRequest({});
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isOpen]);
 
   return (
     <Modal
