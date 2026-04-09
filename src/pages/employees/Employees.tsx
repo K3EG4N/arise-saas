@@ -11,15 +11,14 @@ import {
   type IColumn,
   type ITableButtons,
 } from "arise-ui";
-import { useListEmployees } from "./hooks/useListEmployees";
 import type { IEmployees } from "./interfaces/IEmployee";
+import { useListEmployees } from "./hooks/useListEmployees";
 import { CreateMassiveEmployee } from "./components/CreateMassiveEmployee";
 import { UpdateEmployee } from "./components/UpdateEmployee";
 
 export const Employees = () => {
   const { getIconByName } = useRenderIcon();
-  const { data, getEmployees, pagination, loading, handleSearch } =
-    useListEmployees();
+  const { data, getEmployees, pagination, loading, handleSearch } = useListEmployees();
   const [employee, setEmployee] = useState<IEmployees>();
   const [openUpdateEmployee, setOpenUpdateEmployee] = useState(false);
   const [openCreateSingle, setOpenCreateSingle] = useState(false);
@@ -29,10 +28,10 @@ export const Employees = () => {
     {
       id: 1,
       name: "Name",
-      field: "name",
+      field: "fullName",
       width: "300px",
       onRender: (item) => (
-        <Person primeryText={item.name} imgUrl={item.photo} />
+        <Person primeryText={item.fullName} imgUrl={item.photo} />
       ),
     },
     {

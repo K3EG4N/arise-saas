@@ -1,20 +1,60 @@
 import { ComboBox, DatePicker, DropZone, Input, Modal } from "arise-ui";
+import { GENDER_OPTIONS } from "@/enums/Gender";
+import { useDepartmentOptions } from "@/hooks/department/useDepartmentOptions";
 import type { IUpdateEmployeeModal } from "../interfaces/IEmployee";
+import { useUpdateEmployee } from "../hooks/useUpdateEmployee";
+import { useEffect } from "react";
 
 export const UpdateEmployee = ({
   isOpen,
   onClose,
   employee,
 }: IUpdateEmployeeModal) => {
+  const { departmentOptions } = useDepartmentOptions();
+  const { loading, request, setRequest, response, updateEmployee } =
+    useUpdateEmployee();
+
+  useEffect(() => {
+    if (employee) {
+      setRequest((prev) => ({
+        ...prev,
+        employeeId: employee.employeeId,
+        name: employee.name,
+        lastName: employee.lastName,
+        dni: employee.dni,
+        phone: employee.phone,
+        gender: employee.genderId,
+        departmentId: employee.departmentId,
+        birthDate: employee.birthDate,
+      }));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [employee]);
+
   return (
     <Modal
       title="Update Employee"
       description="Update employee information and assign them to a department."
       isOpen={isOpen}
       onClose={onClose}
-      //   onSuccess={createEmployee}
+      onSuccess={updateEmployee}
       primaryTextButton="Update"
       loadingPhrases={["loading...", "Updating Employee..."]}
+      isLoading={loading}
+      disabledButton={
+        !request.name ||
+        !request.lastName ||
+        !request.dni ||
+        !request.departmentId ||
+        !request.employeeId
+      }
+      statusBanner={
+        response && {
+          status: response?.status as 200 | 400 | 500,
+          description: response?.message,
+          hidden: !response,
+        }
+      }
     >
       <span className="mb-3 inline-block text-xs font-medium text-neutral-600 uppercase">
         Personal Information
@@ -23,48 +63,50 @@ export const UpdateEmployee = ({
         <div className="inline-block h-50 w-[50%]">
           <DropZone
             fileTypes={["png", "jpg", "jpe"]}
-            // onSubmit={(fileUpload) => {
-            //   const file = Array.isArray(fileUpload)
-            //     ? fileUpload[0]
-            //     : fileUpload;
-            //   setRequest((prev) => ({
-            //     ...prev,
-            //     file: {
-            //       name: file.name,
-            //       extension: file.extension,
-            //       fileData: file.fileData,
-            //     },
-            //   }));
-            // }}
+            onSubmit={(fileUpload) => {
+              const file = Array.isArray(fileUpload)
+                ? fileUpload[0]
+                : fileUpload;
+              setRequest((prev) => ({
+                ...prev,
+                file: {
+                  name: file.name,
+                  extension: file.extension,
+                  fileData: file.fileData,
+                },
+              }));
+            }}
           />
         </div>
         <div className="flex w-[50%] flex-col justify-between">
           <Input
             title="Name"
-            defaultValue={employee?.name}
-            // onChange={(v) => setRequest((prev) => ({ ...prev, name: v }))}
+            defaultValue={request.name}
+            onChange={(v) => setRequest((prev) => ({ ...prev, name: v }))}
           />
           <Input
             title="Last Name"
-            // defaultValue={employee?.lastName}
-            // onChange={(v) => setRequest((prev) => ({ ...prev, lastName: v }))}
+            defaultValue={request.lastName}
+            onChange={(v) => setRequest((prev) => ({ ...prev, lastName: v }))}
           />
           <Input
             title="Dni"
-            defaultValue={employee?.code}
-            // onChange={(v) => setRequest((prev) => ({ ...prev, dni: v }))}
+            defaultValue={request.dni}
+            onChange={(v) => setRequest((prev) => ({ ...prev, dni: v }))}
           />
         </div>
       </div>
       <div className="mt-3 grid grid-cols-2 gap-2">
         <Input
           title="Phone"
-          //   onChange={(v) => setRequest((prev) => ({ ...prev, phone: v }))}
+          defaultValue={request.phone}
+          onChange={(v) => setRequest((prev) => ({ ...prev, phone: v }))}
         />
         <ComboBox
-          options={[]}
           title="Gender"
-          //   onSelect={(v) => setRequest((prev) => ({ ...prev, gender: v }))}
+          options={GENDER_OPTIONS}
+          defaultValue={request.gender}
+          onSelect={(v) => setRequest((prev) => ({ ...prev, gender: v }))}
         />
       </div>
       <span className="my-3 inline-block text-xs font-medium text-neutral-600 uppercase">
@@ -73,18 +115,19 @@ export const UpdateEmployee = ({
       <div className="mb-2 flex flex-col gap-4">
         <DatePicker
           title="Birthday"
-          //   onSelectDate={(d) =>
-          //     setRequest((prev) => ({ ...prev, birthDate: d as string }))
-          //   }
+          defaultValue={request.birthDate}
           format={{ pattern: "YMD" }}
+          onSelectDate={(d) =>
+            setRequest((prev) => ({ ...prev, birthDate: d as string }))
+          }
         />
         <ComboBox
-          options={[]}
           title="Department"
-          //   onSelect={(v) => setRequest((prev) => ({ ...prev, departmentId: v }))}
+          options={departmentOptions}
+          defaultValue={request.departmentId}
+          onSelect={(v) => setRequest((prev) => ({ ...prev, departmentId: v }))}
         />
       </div>
-      {/* <pre>{JSON.stringify(request, null, 2)}</pre> */}
     </Modal>
   );
 };
