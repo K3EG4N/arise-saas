@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DepartmentService } from "@/services/DepartmentService";
 import type { IComboBoxOption } from "arise-ui";
 
@@ -10,6 +10,10 @@ export const useDepartmentOptions = () => {
       setOptions(res.data);
     });
   };
+
+  useEffect(() => {
+    getOptions();
+  }, []);
 
   return { getOptions, departmentOptions };
 };
