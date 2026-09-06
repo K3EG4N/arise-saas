@@ -1,84 +1,108 @@
 [
   {
     "orden": 0,
-    "title": "Main Menu",
+    "title": "Principal",
     "items": [
       {
         "id": 1,
         "name": "Dashboard",
         "url": "dashboard",
         "icon": "dashboard",
+        "permission": null,
         "children": []
-      },
-      {
-        "id": 2,
-        "name": "Employees",
-        "url": "employees",
-        "icon": "helmet",
-        "children": [
-          {
-            "id": 1,
-            "name": "Users",
-            "url": "employees/users",
-            "icon": "user",
-            "children": []
-          }
-        ]
       }
     ]
   },
   {
     "orden": 1,
-    "title": "OPERATIONS",
+    "title": "Operaciones",
     "items": [
       {
         "id": 3,
-        "name": "Teams",
+        "name": "Equipos",
         "url": "teams",
         "icon": "team",
+        "permission": null,
         "children": []
       },
       {
         "id": 4,
-        "name": "Organization",
+        "name": "Organización",
         "url": "organization",
-        "icon": "structureTree",
+        "icon": "organigram",
+        "permission": null,
         "children": [
           {
-            "id": 2,
+            "id": 8,
             "name": "Areas",
             "url": "organization/areas",
-            "icon": "",
+            "icon": null,
+            "permission": null,
             "children": []
           },
           {
-            "id": 2,
+            "id": 9,
             "name": "Departments",
             "url": "organization/departments",
-            "icon": "",
+            "icon": null,
+            "permission": null,
             "children": []
           },
           {
-            "id": 2,
+            "id": 10,
             "name": "Puestos",
             "url": "organization/puestos",
-            "icon": "",
+            "icon": null,
+            "permission": null,
             "children": []
           }
         ]
       },
       {
         "id": 5,
-        "name": "Approvals",
+        "name": "Permisos",
         "url": "approvals",
         "icon": "roundedCheck",
+        "permission": "approvals.view",
+        "children": []
+      }
+    ]
+  },
+  {
+    "orden": 2,
+    "title": "Administración",
+    "items": [
+      {
+        "id": 6,
+        "name": "Empleados",
+        "url": "employees",
+        "icon": "users",
+        "permission": null,
+        "children": [
+          {
+            "id": 7,
+            "name": "Usuarios",
+            "url": "users",
+            "icon": null,
+            "permission": null,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": 11,
+        "name": "Roles",
+        "url": "admin/roles",
+        "icon": "roles",
+        "permission": "admin.roles",
         "children": []
       },
       {
-        "id": 6,
-        "name": "Calendar",
-        "url": "calendar",
-        "icon": "calendarDays",
+        "id": 12,
+        "name": "Auditoría",
+        "url": "admin/audit-log",
+        "icon": "history",
+        "permission": "admin.audit",
         "children": []
       }
     ]

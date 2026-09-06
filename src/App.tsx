@@ -1,14 +1,26 @@
 import { RouterProvider } from "react-router-dom";
-import { router } from "./routes";
-import { SessionUserProvider } from "./context/SessionUserProvider";
 import { ThemeProvider } from "./context/ThemeProvider";
+import { ConfigProvider } from "antd";
+import { AuthProvider } from "./context/AuthProvider";
+import { Approuter } from "./routes/Approuter";
+import { LoaderProvider } from "./context/LoaderProvider";
 
 export const App = () => {
   return (
-    <ThemeProvider>
-      <SessionUserProvider>
-        <RouterProvider router={router} />
-      </SessionUserProvider>
-    </ThemeProvider>
+    <ConfigProvider
+      theme={{
+        token: {
+          colorPrimary: "#00A86B",
+        },
+      }}
+    >
+    <LoaderProvider>
+        <ThemeProvider>
+          <AuthProvider>
+            <RouterProvider router={Approuter} />
+          </AuthProvider>
+        </ThemeProvider>
+      </LoaderProvider>
+    </ConfigProvider>
   );
 };

@@ -1,19 +1,20 @@
 import { useState } from "react";
-import { EmployeeService } from "@/services/EmployeeService";
+import { UserService } from "@/services/UserService";
+import type { ICreateUserRequest } from "../interfaces/IUser";
 import type { IBaseResponse } from "@/interfaces/IBaseResponse";
-import type { ICreateEmployeeRequest } from "../interfaces/IEmployee";
 import type { AxiosError } from "axios";
 
-export const useCreateEmployee = (onClose: () => void, reload?: () => void) => {
+export const useCreateUser = (onClose: () => void, reload?: () => void) => {
   const [loading, setLoading] = useState(false);
-  const [request, setRequest] = useState<Partial<ICreateEmployeeRequest>>({});
+  const [request, setRequest] = useState<Partial<ICreateUserRequest>>();
   const [response, setResponse] = useState<IBaseResponse>();
 
-  const createEmployee = () => {
+  const createUser = () => {
     setLoading(true);
-    EmployeeService.CreateEmployee(request)
+    UserService.CreateUser(request)
       .then((res) => {
         setLoading(false);
+
         setResponse({
           message: res.data.message,
           status: res.status,
@@ -41,5 +42,5 @@ export const useCreateEmployee = (onClose: () => void, reload?: () => void) => {
       });
   };
 
-  return { loading, request, response, createEmployee, setRequest };
+  return { loading, request, response, createUser, setRequest };
 };

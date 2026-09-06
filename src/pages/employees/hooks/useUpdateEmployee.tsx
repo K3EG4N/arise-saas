@@ -4,7 +4,7 @@ import type { IUpdateEmployeeRequest } from "../interfaces/IEmployee";
 import type { IBaseResponse } from "@/interfaces/IBaseResponse";
 import type { AxiosError } from "axios";
 
-export const useUpdateEmployee = () => {
+export const useUpdateEmployee = (onClose: () => void, reload?: () => void) => {
   const [loading, setLoading] = useState(false);
   const [request, setRequest] = useState<Partial<IUpdateEmployeeRequest>>({});
   const [response, setResponse] = useState<IBaseResponse>();
@@ -19,6 +19,11 @@ export const useUpdateEmployee = () => {
           status: res.status,
           success: res.data.success,
         });
+
+        if (res.data.success) {
+          reload?.();
+          setTimeout(onClose, 3000);
+        }
       })
       .catch((e: AxiosError<IBaseResponse>) => {
         setLoading(false);

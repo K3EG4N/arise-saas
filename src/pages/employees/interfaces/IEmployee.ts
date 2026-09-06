@@ -42,3 +42,7 @@ export interface IUpdateEmployeeRequest extends ICreateEmployeeRequest {
 export interface IUpdateEmployeeModal extends IDisclosure {
   employee: IEmployees | undefined;
 }
+
+export interface IDeleteEmployeeModal extends IDisclosure {
+  employee: IEmployees | undefined;
+}

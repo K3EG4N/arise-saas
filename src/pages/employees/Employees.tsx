@@ -15,14 +15,17 @@ import type { IEmployees } from "./interfaces/IEmployee";
 import { useListEmployees } from "./hooks/useListEmployees";
 import { CreateMassiveEmployee } from "./components/CreateMassiveEmployee";
 import { UpdateEmployee } from "./components/UpdateEmployee";
+import { DeleteEmployee } from "./components/DeleteEmployee";
 
 export const Employees = () => {
   const { getIconByName } = useRenderIcon();
-  const { data, getEmployees, pagination, loading, handleSearch } = useListEmployees();
+  const { data, getEmployees, pagination, loading, handleSearch } =
+    useListEmployees();
   const [employee, setEmployee] = useState<IEmployees>();
   const [openUpdateEmployee, setOpenUpdateEmployee] = useState(false);
   const [openCreateSingle, setOpenCreateSingle] = useState(false);
   const [openCreateMassive, setOpenCreateMassive] = useState(false);
+  const [openDeleteEmployee, setOpenDeleteEmployee] = useState(false);
 
   const columns: IColumn<IEmployees>[] = [
     {
@@ -109,6 +112,10 @@ export const Employees = () => {
               label: "Delete",
               value: "delete",
               icon: getIconByName("trash", "size-4.5")?.icon,
+              onClick: () => {
+                setOpenDeleteEmployee(true);
+                setEmployee(item);
+              },
             },
           ]}
         />
@@ -125,19 +132,19 @@ export const Employees = () => {
       },
       {
         label: "Create",
-        icon: getIconByName("user")?.icon,
+        icon: getIconByName("add")?.icon,
         type: "dropdown",
         options: [
           {
             label: "Single",
             value: "single",
-            icon: getIconByName("add", "stroke-2 size-5")?.icon,
+            icon: getIconByName("user", "stroke-2 size-4")?.icon,
             onClick: () => setOpenCreateSingle(true),
           },
           {
             label: "Bulk",
             value: "bulk",
-            icon: getIconByName("uploadCloud", "size-4 stroke-2 ml-1")?.icon,
+            icon: getIconByName("uploadCloud", "size-4 stroke-2")?.icon,
             onClick: () => setOpenCreateMassive(true),
           },
         ],
@@ -165,6 +172,7 @@ export const Employees = () => {
       <CreateSingleEmployee
         isOpen={openCreateSingle}
         onClose={() => setOpenCreateSingle(false)}
+        reload={getEmployees}
       />
 
       <CreateMassiveEmployee
@@ -176,7 +184,16 @@ export const Employees = () => {
         isOpen={openUpdateEmployee}
         onClose={() => setOpenUpdateEmployee(false)}
         employee={employee}
+        reload={getEmployees}
       />
+
+      <DeleteEmployee
+        isOpen={openDeleteEmployee}
+        onClose={() => setOpenDeleteEmployee(false)}
+        reload={getEmployees}
+        employee={employee}
+      />
+
       <Table
         multiSelect
         hasSearch

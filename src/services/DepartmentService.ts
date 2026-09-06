@@ -1,7 +1,7 @@
-import { api } from "./BaseRequest";
+import { httpClient } from "./api/axiosInstance";
 
 const GetDepartmentsOptions = () => {
-  return api.get("/department");
+  return httpClient.get("/department");
 };
 
 export const DepartmentService = {

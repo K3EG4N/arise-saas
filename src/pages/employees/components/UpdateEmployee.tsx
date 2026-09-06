@@ -1,18 +1,19 @@
+import { useEffect } from "react";
 import { ComboBox, DatePicker, DropZone, Input, Modal } from "arise-ui";
 import { GENDER_OPTIONS } from "@/enums/Gender";
 import { useDepartmentOptions } from "@/hooks/department/useDepartmentOptions";
-import type { IUpdateEmployeeModal } from "../interfaces/IEmployee";
 import { useUpdateEmployee } from "../hooks/useUpdateEmployee";
-import { useEffect } from "react";
+import type { IUpdateEmployeeModal } from "../interfaces/IEmployee";
 
 export const UpdateEmployee = ({
   isOpen,
+  reload,
   onClose,
   employee,
 }: IUpdateEmployeeModal) => {
   const { departmentOptions } = useDepartmentOptions();
   const { loading, request, setRequest, response, updateEmployee } =
-    useUpdateEmployee();
+    useUpdateEmployee(onClose, reload);
 
   useEffect(() => {
     if (employee) {

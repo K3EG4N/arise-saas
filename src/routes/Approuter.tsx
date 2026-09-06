@@ -5,12 +5,9 @@ import { Dashboard } from "@/pages/dashboard/Dashboard";
 import { Layout } from "@/components/Layout";
 import { Main } from "@/components/Main";
 import { Employees } from "@/pages/employees/Employees";
+import { Users } from "@/pages/users/Users";
 
-export const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Home />,
-  },
+export const Approuter = createBrowserRouter([
   {
     element: <Layout />,
     children: [
@@ -24,20 +21,24 @@ export const router = createBrowserRouter([
           {
             index: true,
             path: "/dashboard",
-            element: <Dashboard />,
+            element: <h1>owo</h1>,
           },
           {
             path: "/employees",
-            element: <Employees />,
+            element: <h1>uwu</h1>,
           },
           {
-            path: "/employees/users",
-            element: <h1>Users</h1>,
+            path: "/organization",
+            element: <h1>uwu</h1>,
           },
-          {
-            path: "/teams",
-            element: <h1>Teams</h1>,
-          },
+          //   {
+          //     path: "/employees/users",
+          //     element: <Users />,
+          //   },
+          //   {
+          //     path: "/teams",
+          //     element: <h1>Teams</h1>,
+          //   },
         ],
       },
     ],

@@ -1,10 +1,15 @@
-@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Outfit:wght@100..900&display=swap");
 @import "tailwindcss";
-@source "../node_modules/arise-ui/dist";
-
-@custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --font-outfit: "Outfit", sans-serif;
-  --font-dance: "Dancing Script";
+  --color-jade-50: #ebfef4;
+  --color-jade-100: #d0fbe3;
+  --color-jade-200: #a4f6cc;
+  --color-jade-300: #6aebb1;
+  --color-jade-400: #2fd891;
+  --color-jade-500: #0abf79;
+  --color-jade-600: #00a86b;
+  --color-jade-700: #007c52;
+  --color-jade-800: #036242;
+  --color-jade-900: #045038;
+  --color-jade-950: #012d20;
 }

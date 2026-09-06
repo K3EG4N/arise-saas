@@ -10,10 +10,14 @@ import {
 import { useCreateEmployee } from "../hooks/useCreateEmployee";
 import { GENDER_OPTIONS } from "@/enums/Gender";
 
-export const CreateSingleEmployee = ({ isOpen, onClose }: IDisclosure) => {
+export const CreateSingleEmployee = ({
+  reload,
+  isOpen,
+  onClose,
+}: IDisclosure) => {
   const { departmentOptions } = useDepartmentOptions();
   const { loading, request, response, createEmployee, setRequest } =
-    useCreateEmployee();
+    useCreateEmployee(onClose, reload);
 
   return (
     <Modal
