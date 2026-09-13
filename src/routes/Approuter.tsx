@@ -25,7 +25,7 @@ export const Approuter = createBrowserRouter([
           },
           {
             path: "/employees",
-            element: <h1>uwu</h1>,
+            element: <Employees />,
           },
           {
             path: "/organization",

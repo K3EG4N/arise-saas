@@ -1,14 +1,17 @@
-// icons/resolveIcon.ts
-import { ICON_REGISTRY, type IconAlias, type IconVariant } from "./registry";
 import { QuestionCircleOutlined } from "@ant-design/icons";
-import type { ComponentType } from "react";
+import { ICON_REGISTRY, type IconAlias, type IconVariant } from "./registry";
+import { createElement, type ElementType, type ReactNode } from "react";
 
 interface ResolvedIcon {
-  Icon: ComponentType<any>;
+  Icon: ElementType;
+  element: ReactNode;
   isSolid: boolean;
 }
-
-const FALLBACK: ResolvedIcon = { Icon: QuestionCircleOutlined, isSolid: false };
+const FALLBACK: ResolvedIcon = {
+  Icon: QuestionCircleOutlined,
+  isSolid: false,
+  element: createElement(QuestionCircleOutlined),
+};
 
 function isValidAlias(alias: string): alias is IconAlias {
   return alias in ICON_REGISTRY;
@@ -26,8 +29,11 @@ export function resolveIcon(
 
   const entry = ICON_REGISTRY[alias];
   const resolvedVariant = variant ?? entry.defaultVariant;
+  const Icon = resolvedVariant === "solid" ? entry.solid : entry.outline;
+
   return {
-    Icon: resolvedVariant === "solid" ? entry.solid : entry.outline,
+    Icon,
+    element: createElement(Icon),
     isSolid: resolvedVariant === "solid",
   };
 }

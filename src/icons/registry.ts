@@ -3,6 +3,7 @@ import {
   HomeFilled,
   SettingOutlined,
   SettingFilled,
+  ReloadOutlined,
 } from "@ant-design/icons";
 import type { ComponentType } from "react";
 import {
@@ -34,6 +35,7 @@ export type IconAlias =
   | "organigram"
   | "safety"
   | "mailBox"
+  | "refresh"
   | "audit";
 export type IconVariant = "solid" | "outline";
 
@@ -88,6 +90,11 @@ export const ICON_REGISTRY: Record<IconAlias, IconEntry> = {
   mailBox: {
     outline: MailBoxOutline,
     solid: MailBoxSolid,
+    defaultVariant: "outline",
+  },
+  refresh: {
+    outline: ReloadOutlined,
+    solid: ReloadOutlined,
     defaultVariant: "outline",
   },
 };

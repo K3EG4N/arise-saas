@@ -1,208 +1,107 @@
-import { useState } from "react";
-import { CreateSingleEmployee } from "./components/CreateSingleEmployee";
-import { STATUS } from "@/enums/Status";
-import {
-  Badge,
-  DropDown,
-  Person,
-  Table,
-  useRenderIcon,
-  type IBadgeStatus,
-  type IColumn,
-  type ITableButtons,
-} from "arise-ui";
-import type { IEmployees } from "./interfaces/IEmployee";
-import { useListEmployees } from "./hooks/useListEmployees";
-import { CreateMassiveEmployee } from "./components/CreateMassiveEmployee";
-import { UpdateEmployee } from "./components/UpdateEmployee";
-import { DeleteEmployee } from "./components/DeleteEmployee";
+import { useMemo } from "react";
+import { CustomTable } from "@/components/ui/CustomTable";
+import { PageHeader } from "@/components/ui/PageHeader";
+import { useEmployees } from "@/hooks/employee/useEmployees";
+import { usePagination } from "@/hooks/usePagination";
+import { resolveIcon } from "@/icons/resolveIcon";
+import type { ITableButtons } from "@/interfaces/ui/ICustomTable";
 
 export const Employees = () => {
-  const { getIconByName } = useRenderIcon();
-  const { data, getEmployees, pagination, loading, handleSearch } =
-    useListEmployees();
-  const [employee, setEmployee] = useState<IEmployees>();
-  const [openUpdateEmployee, setOpenUpdateEmployee] = useState(false);
-  const [openCreateSingle, setOpenCreateSingle] = useState(false);
-  const [openCreateMassive, setOpenCreateMassive] = useState(false);
-  const [openDeleteEmployee, setOpenDeleteEmployee] = useState(false);
+  const { pagination, setPagination } = usePagination();
+  const { employees, getEmployees, loading } = useEmployees(pagination);
 
-  const columns: IColumn<IEmployees>[] = [
+  const buttons: ITableButtons[] = [
     {
-      id: 1,
-      name: "Name",
-      field: "fullName",
-      width: "300px",
-      onRender: (item) => (
-        <Person primeryText={item.fullName} imgUrl={item.photo} />
-      ),
-    },
-    {
-      id: 2,
-      name: "Code",
-      field: "code",
-    },
-    {
-      id: 2,
-      name: "Dni",
-      field: "dni",
-    },
-    {
-      id: 4,
-      name: "Phone",
-      field: "phone",
-      visible: false,
-    },
-    {
-      id: 4,
-      name: "Department",
-      field: "department",
-      visible: false,
-      width: "220px",
-    },
-    {
-      id: 3,
-      name: "Gender",
-      field: "gender",
-    },
-    {
-      id: 5,
-      name: "Joined Date",
-      field: "hireDate",
-      visible: false,
-    },
-    {
-      id: 6,
-      name: "Birth Date",
-      field: "birthDate",
-    },
-    {
-      id: 7,
-      name: "Status",
-      field: "status",
-      onRender: (item) => (
-        <Badge
-          text={item.status}
-          status={
-            STATUS[item.statusCode as keyof typeof STATUS] as IBadgeStatus
-          }
-        />
-      ),
-    },
-    {
-      id: 6,
-      name: "Actions",
-      field: "action",
-      width: "100px",
-      onRender: (item) => (
-        <DropDown
-          appareance="none"
-          icon={getIconByName("more")?.icon}
-          options={[
-            {
-              label: "Edit",
-              value: "edit",
-              icon: getIconByName("edit", "size-4.5")?.icon,
-              onClick: () => {
-                setOpenUpdateEmployee(true);
-                setEmployee(item);
-              },
-            },
-            {
-              label: "Delete",
-              value: "delete",
-              icon: getIconByName("trash", "size-4.5")?.icon,
-              onClick: () => {
-                setOpenDeleteEmployee(true);
-                setEmployee(item);
-              },
-            },
-          ]}
-        />
-      ),
+      type: "default",
+      icon: resolveIcon("refresh")?.element,
+      onClick: getEmployees,
+      label: "Refrescar",
     },
   ];
 
-  const buttons: ITableButtons = {
-    left: [
+  const columns = useMemo(
+    () => [
       {
-        label: "Refresh",
-        icon: getIconByName("refresh")?.icon,
-        onClick: () => getEmployees(),
+        title: "#",
+        key: "index",
+        width: 60,
+        align: "center" as const,
+        render: (_: unknown, _record: unknown, index: number) => index + 1,
       },
       {
-        label: "Create",
-        icon: getIconByName("add")?.icon,
-        type: "dropdown",
-        options: [
-          {
-            label: "Single",
-            value: "single",
-            icon: getIconByName("user", "stroke-2 size-4")?.icon,
-            onClick: () => setOpenCreateSingle(true),
-          },
-          {
-            label: "Bulk",
-            value: "bulk",
-            icon: getIconByName("uploadCloud", "size-4 stroke-2")?.icon,
-            onClick: () => setOpenCreateMassive(true),
-          },
-        ],
+        title: "Name",
+        dataIndex: "name",
+        key: "name",
+        width: 250,
       },
       {
-        label: "Export",
-        icon: getIconByName("downloadCloud", "size-4.5")?.icon,
+        title: "Code",
+        dataIndex: "code",
+        key: "code",
+        width: 120,
+      },
+      {
+        title: "Dni",
+        dataIndex: "dni",
+        key: "dni",
+        width: 120,
+      },
+      {
+        title: "Phone",
+        dataIndex: "phone",
+        key: "phone",
+        width: 130,
+      },
+      {
+        title: "Department",
+        dataIndex: "department",
+        key: "department",
+        width: 250,
+      },
+      {
+        title: "Gender",
+        dataIndex: "gender",
+        key: "gender",
+        // width: 110,
+      },
+      {
+        title: "Joined Date",
+        dataIndex: "hireDate",
+        key: "hireDate",
+        // width: 130,
+      },
+      {
+        title: "Birth Date",
+        dataIndex: "birthDate",
+        key: "birthDate",
+        // width: 130,
       },
     ],
-    // right: [
-    //   {
-    //     label: "Filter",
-    //     icon: getIconByName("filter")?.icon,
-    //   },
-    // ],
-  };
+    [],
+  );
 
   return (
-    <section className="flex h-full flex-col">
-      <h1 className="text-2xl font-medium">Employees</h1>
-      <span className="text-sm">
-        See all employees of your work and make changes
-      </span>
-
-      <CreateSingleEmployee
-        isOpen={openCreateSingle}
-        onClose={() => setOpenCreateSingle(false)}
-        reload={getEmployees}
+    <section className="flex h-full min-h-0 w-full flex-col gap-4">
+      <PageHeader
+        title="Empleados"
+        description="Administra los empleados de su organización y sus datos de contacto."
+        breadcrumbItems={[
+          {
+            title: "Empleados",
+          },
+        ]}
       />
 
-      <CreateMassiveEmployee
-        isOpen={openCreateMassive}
-        onClose={() => setOpenCreateMassive(false)}
-      />
-
-      <UpdateEmployee
-        isOpen={openUpdateEmployee}
-        onClose={() => setOpenUpdateEmployee(false)}
-        employee={employee}
-        reload={getEmployees}
-      />
-
-      <DeleteEmployee
-        isOpen={openDeleteEmployee}
-        onClose={() => setOpenDeleteEmployee(false)}
-        reload={getEmployees}
-        employee={employee}
-      />
-
-      <Table
-        multiSelect
-        hasSearch
-        onSearch={handleSearch}
-        isLoading={loading}
+      <CustomTable
+        enableSearch
+        loading={loading}
+        data={employees?.items ?? []}
         columns={columns}
-        data={data?.data ?? []}
-        buttons={buttons}
         pagination={pagination}
+        buttons={buttons}
+        meta={employees}
+        rowKey={(record) => record.employeeId}
+        onPaginationChange={setPagination}
       />
     </section>
   );

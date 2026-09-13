@@ -1,20 +1,27 @@
+import { httpClient } from "./api/axiosInstance";
 import type {
   ICreateEmployeeRequest,
   IEmployees,
   IUpdateEmployeeRequest,
 } from "@/pages/employees/interfaces/IEmployee";
-import type { ICollection } from "@/interfaces/ICollection";
 import type { IBaseResponse } from "@/interfaces/IBaseResponse";
 import type { ICurrentUser } from "@/interfaces/IAuth";
 import type { IResult } from "@/interfaces/IRequest";
-import { httpClient } from "./api/axiosInstance";
+import type { IPagedResult, IPagination } from "@/interfaces/IPagination";
 
-// const GetAllEmployees = (filter: IFilter, signal?: AbortSignal) => {
-//   return httpClient.get<ICollection<IEmployees>>("/employee", {
-//     params: filter,
-//     signal: signal || new AbortController().signal,
-//   });
-// };
+const getAllEmployees = async (
+  filter: IPagination,
+  signal?: AbortSignal,
+) => {
+  const response = await httpClient.get<IResult<IPagedResult<IEmployees>>>(
+    "/employee",
+    {
+      params: filter,
+      signal: signal || new AbortController().signal,
+    },
+  );
+  return response.data;
+};
 
 const CreateEmployee = (data: Partial<ICreateEmployeeRequest>) => {
   return httpClient.post<IBaseResponse>("/employee", data);
@@ -36,7 +43,7 @@ const GetEmployeeByUserId = async (userId: string) => {
 // };
 
 export const EmployeeService = {
-  //   GetAllEmployees,
+  getAllEmployees,
   GetEmployeeByUserId,
   CreateEmployee,
   UpdateEmployee,
